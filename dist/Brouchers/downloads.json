@@ -1,0 +1,44 @@
+[
+  {
+    "name": "FIDAS Brochure",
+    "description": "Comprehensive overview of FIDAS capabilities",
+    "extension": "docx",
+    "path": "/Brouchers/base doc for brochure.docx"
+  },
+  {
+    "name": "Greige Fabric Presentation",
+    "description": "Presentation on Greige Fabric inspection",
+    "extension": "pptx",
+    "path": "/Brouchers/GREIGE FABRIC PAGE 2.pptx"
+  },
+  {
+    "name": "Company Letterhead",
+    "description": "Official company letterhead template",
+    "extension": "doc",
+    "path": "/Brouchers/LETTER HEAD.doc"
+  },
+  {
+    "name": "New Counter Brochure",
+    "description": "Latest brochure for counter products",
+    "extension": "pdf",
+    "path": "/Brouchers/new counter brochure-final.pdf"
+  },
+  {
+    "name": "Salient Features",
+    "description": "Image representing change or updates",
+    "extension": "png",
+    "path": "/Brouchers/CHANGE.png"
+  },
+  {
+    "name": "Greige Fabric Brochure",
+    "description": "Second side of the Greige Fabric brochure",
+    "extension": "jpg",
+    "path": "/Brouchers/greige fabric brochure - side 2 (4).jpg"
+  },
+  {
+    "name": "Greige Fabric Inspection Module",
+    "description": "Core objectives and scope document for Greige Fabric Inspection",
+    "extension": "doc",
+    "path": "/Brouchers/CORE OBJECTIVES OF GREIGE FABRIC INSPECTION MODULE & SCOPE DOCUMENT.doc"
+  }
+]
