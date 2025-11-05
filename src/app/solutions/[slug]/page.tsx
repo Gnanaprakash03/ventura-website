@@ -53,7 +53,7 @@ export async function getIndustryPageData() {
     related[] {
       slug,
       name,
-      img {
+      "image": img {
         asset->{
           url
         }
@@ -118,35 +118,29 @@ export async function getOtherSolutionPageData() {
   return data
 }
 // Dynamic Metadata
-// export function generateMetadata({ params }: SolutionPageProps): Metadata {
-//   const solutionName = params.slug.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+export function generateMetadata({ params }: SolutionPageProps): Metadata {
+  const solutionName = params.slug.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
-//   return {
-//     title: `${solutionName} – FIDAS Solutions`,
-//     description: `Explore the ${solutionName} solution by FIDAS for fabric inspection, grading, and textile quality automation.`,
-//     openGraph: {
-//       title: `${solutionName} – FIDAS Solutions`,
-//       description: `Discover how FIDAS ${solutionName} improves fabric inspection, grading, and quality reporting for textiles.`,
-//       url: `https://fidas.in/solutions/${params.slug}`,
-//       siteName: "FIDAS",
-//       images: [
-//         {
-//           url: `/og-solutions-${params.slug}.jpg`,
-//           width: 1200,
-//           height: 630,
-//           alt: `${solutionName} by FIDAS`,
-//         },
-//       ],
-//       type: "website",
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: `${solutionName} – FIDAS Solutions`,
-//       description: `Improve textile quality with FIDAS ${solutionName} solution.`,
-//       images: [`/og-solutions-${params.slug}.jpg`],
-//     },
-//   };
-// }
+  return {
+    title: `${solutionName} – FIDAS Solutions`,
+    description: `Explore the ${solutionName} solution by FIDAS for fabric inspection, grading, and textile quality automation.`,
+    openGraph: {
+      title: `${solutionName} – FIDAS Solutions`,
+      description: `Discover how FIDAS ${solutionName} improves fabric inspection, grading, and quality reporting for textiles.`,
+      url: `https://fidas.in/solutions/${params.slug}`,
+      siteName: "FIDAS",
+      images: [
+        {
+          url: `/og-solutions-${params.slug}.jpg`,
+          width: 1200,
+          height: 630,
+          alt: `${solutionName} by FIDAS`,
+        },
+      ],
+      type: "website",
+    },
+  };
+}
 
 interface PageProps {
   params: { slug: string };

@@ -89,6 +89,11 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
           <p className="text-gray-300">{footerData.copyrightText}</p>
+          <p className="text-xs text-gray-500 text-center mt-2">
+              This site is protected by reCAPTCHA and the Google
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer"> Privacy Policy </a> and
+              <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer"> Terms of Service </a> apply.
+            </p>
         </div>
       </div>
     </footer>

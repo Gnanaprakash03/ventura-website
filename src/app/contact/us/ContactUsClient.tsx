@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, Variants } from 'framer-motion';
 import SocialMedia from '../social/page';
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaTimes, FaCheck } from 'react-icons/fa';
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import RecaptchaProviderWrapper from "@/components/ui/RecaptchaProviderWrapper";
 
 
 const fadeInUp: Variants = {
@@ -39,7 +41,7 @@ interface FormspreeResponse {
   errors?: Array<{
     code: string;
     field?: string;
-    message: string;
+    message?: string;
   }>;
 }
 
@@ -50,18 +52,18 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [workEmail, setWorkEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [message, setMessage] = useState('');
-  const [hoveredInterest, setHoveredInterest] = useState<string | null>(null);
   const [selectedInterest, setSelectedInterest] = useState("");
   const [otherInterest, setOtherInterest] = useState("");
   const [showOtherField, setShowOtherField] = useState(false);
 
-
+  
+  const { executeRecaptcha } = useGoogleReCaptcha(); // ✅ from reCAPTCHA
+  
   const availableInterests = [
     { 
       name: 'FIDAS Software', 
@@ -101,127 +103,157 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
   ];
 
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitError(null);
-    setIsSubmitting(true);
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setSubmitError(null);
+//     setIsSubmitting(true);
 
-    try {
-      const formData = {
-        firstName,
-        lastName,
-        email: workEmail,
-        phoneNumber,
-        jobTitle,
-        companyName,
-        message,
-        interests: selectedInterest,
-        ...(selectedInterest === 'others' && { otherInterest }),
-
-      };
-
-      const response = await fetch('https://formspree.io/f/xwppwzlq', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-        // Reset form fields
-        setFirstName('');
-        setLastName('');
-        setWorkEmail('');
-        setPhoneNumber('');
-        setJobTitle('');
-        setCompanyName('');
-        setMessage('');
-        setSelectedInterest("");
-        setOtherInterest('');
-      } else {
-        const result = await response.json();
-        console.error('Formspree error:', result);
-        setSubmitError('Failed to submit form. Please try again or contact us directly.');
-      }
-    } catch (error) {
-      console.error('Submission error:', error);
-      setSubmitError('An unexpected error occurred. Please try again or contact us directly.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Add timeout to reset success state
-  
-//  const handleSubmit = async (e: React.FormEvent) => {
-//   e.preventDefault();
-//   setSubmitError(null);
-//   setIsSubmitting(true);
-
-//   try {
-//     const formData = {
-//       firstName,
-//       lastName,
-//       email: workEmail,
-//       phoneNumber,
-//       jobTitle,
-//       companyName,
-//       message,
-//       interests: selectedInterest,
-//       ...(selectedInterest === "others" && { otherInterest }),
-//     };
-
-//     // Call your Next.js App Router API
-//     const response = await fetch("/api/contact", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
-
-//     // Check if the response is JSON and status is OK
-//     const contentType = response.headers.get("content-type");
-//     let result: any = null;
-
-//     if (contentType && contentType.includes("application/json")) {
-//       result = await response.json();
-//     } else {
-//       // fallback: get raw text
-//       const text = await response.text();
-//       console.error("Non-JSON response:", text);
-//       setSubmitError("Unexpected server response. Please try again later.");
+//     // 🧠 Step 1: Honeypot check — stop bots immediately
+//     if ((e.target as any)._gotcha?.value) {
+//       console.log("Bot detected — form not submitted.");
 //       return;
 //     }
 
-//     if (response.ok) {
-//       setIsSubmitted(true);
-//       // Reset form fields
-//       setFirstName("");
-//       setLastName("");
-//       setWorkEmail("");
-//       setPhoneNumber("");
-//       setJobTitle("");
-//       setCompanyName("");
-//       setMessage("");
-//       setSelectedInterest("");
-//       setOtherInterest("");
-//     } else {
-//       console.error("API error:", result);
-//       setSubmitError(result?.message || "Failed to submit form. Please try again.");
+//     try {
+
+//       // ✅ Execute reCAPTCHA before sending
+//       if (!executeRecaptcha) {
+//         console.error("Recaptcha not yet available");
+//         setSubmitError("Recaptcha not ready. Please try again.");
+//         setIsSubmitting(false);
+//         return;
+//       }
+// if (!executeRecaptcha) {
+//       setSubmitError("Recaptcha not ready yet. Please try again.");
+//       setIsSubmitting(false);
+//       return;
 //     }
-//   } catch (error: any) {
-//     console.error("Submission error:", error);
-//     setSubmitError(
-//       error?.message || "An unexpected error occurred. Please try again."
-//     );
-//   } finally {
-//     setIsSubmitting(false);
-//   }
-// };
+
+//     const token = await executeRecaptcha("contact_form");
+//     console.log("reCAPTCHA token:", token);
+
+//     if (!token) {
+//       setSubmitError("Please confirm you are not a bot.");
+//       setIsSubmitting(false);
+//       return;
+//     }
+//       console.log("reCAPTCHA token:", token);
+//       const formData = {
+//         firstName,
+//         email: workEmail,
+//         phoneNumber,
+//         jobTitle,
+//         companyName,
+//         message,
+//         interests: selectedInterest,
+//         ...(selectedInterest === 'others' && { otherInterest }),
+//       };
+
+//       const response = await fetch('https://formspree.io/f/xwppwzlq', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json'
+//         },
+//         body: JSON.stringify(formData)
+//       });
+
+//       if (response.ok) {
+//         setIsSubmitted(true);
+//         // Reset form fields
+//         setFirstName('');
+//         setWorkEmail('');
+//         setPhoneNumber('');
+//         setJobTitle('');
+//         setCompanyName('');
+//         setMessage('');
+//         setSelectedInterest("");
+//         setOtherInterest('');
+//       } else {
+//         const result = await response.json();
+//         console.error('Formspree error:', result);
+//         setSubmitError('Failed to submit form. Please try again or contact us directly.');
+//       }
+//     } catch (error) {
+//       console.error('Submission error:', error);
+//       setSubmitError('An unexpected error occurred. Please try again or contact us directly.');
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setSubmitError(null);
+  setIsSubmitting(true);
+
+  try {
+    // 🧠 Step 1: Stop bots using honeypot
+    if ((e.target as any)._gotcha?.value) {
+      console.log("Bot detected — form not submitted.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // ✅ Step 2: Run reCAPTCHA
+    if (!executeRecaptcha) {
+      setSubmitError("Recaptcha not ready. Please try again.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const token = await executeRecaptcha("contact_form");
+    if (!token) {
+      setSubmitError("Please confirm you are not a bot.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // ✅ Step 3: Build data object
+    const formData = {
+      firstName,
+      workEmail,
+      phoneNumber,
+      jobTitle,
+      companyName,
+      message,
+      interests: selectedInterest,
+      ...(selectedInterest === "others" && { otherInterest }),
+       recaptchaToken: token, // send your reCAPTCHA token too
+    };
+
+    // ✅ Step 4: Send to your Next.js API route
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    // ✅ Step 5: Handle the response
+    if (response.ok) {
+      setIsSubmitted(true);
+
+      // Reset form fields
+      setFirstName("");
+      setWorkEmail("");
+      setPhoneNumber("");
+      setJobTitle("");
+      setCompanyName("");
+      setMessage("");
+      setSelectedInterest("");
+      setOtherInterest("");
+    } else {
+      const result = await response.json();
+      console.error("API Error:", result);
+      setSubmitError(result?.error || "Failed to submit form. Please try again.");
+    }
+  } catch (error: any) {
+    console.error("Submission error:", error);
+    setSubmitError(error?.message || "An unexpected error occurred. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
 
 
@@ -237,64 +269,6 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
-      {/* <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Interested In <span className="text-red-600">*</span>
-        </label>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {availableInterests.map((interest) => (
-            <div key={interest.tag} className="relative inline-flex flex-col items-center">
-              <motion.button
-                type="button"
-                onClick={() => toggleInterest(interest.tag)}
-                onMouseEnter={() => setHoveredInterest(interest.tag)}
-                onMouseLeave={() => setHoveredInterest(null)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  selectedInterests.includes(interest.tag)
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {interest.name}
-                {selectedInterests.includes(interest.tag) && (
-                  <FaTimes className="inline-block ml-2 w-3 h-3" />
-                )}
-              </motion.button>
-              {hoveredInterest === interest.tag && (
-                <motion.div
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute z-10 w-48 p-2 text-sm text-white bg-gray-800 rounded-md shadow-lg bottom-full mb-2"
-                >
-                  {interest.description}
-                  <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-full">
-                    <div className="border-[6px] border-transparent border-t-gray-800"></div>
-                  </div>
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
-        {selectedInterests.includes('others') && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mt-2"
-          >
-            <input
-              type="text"
-              placeholder="Please specify your interest"
-              value={otherInterest}
-              onChange={(e) => setOtherInterest(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300"
-            />
-          </motion.div>
-        )}
-      </div> */}
-
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Interested In <span className="text-red-600">*</span>
@@ -382,6 +356,13 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
           onChange={(e) => setWorkEmail(e.target.value)}
           className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
           required
+        />
+        <input
+          type="text"
+          name="_gotcha"
+          style={{ display: "none" }}
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 
@@ -477,6 +458,7 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
 
 export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsData | null }) {
   return (
+    <RecaptchaProviderWrapper>
     <div className="w-full bg-gradient-to-br from-gray-50 to-blue-50 text-gray-800 min-h-screen">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt- pb-8">
         <div className="sticky z-30 top-[4.3rem] py-4 mb-12 overflow-hidden bg-white">
@@ -551,5 +533,6 @@ export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsDat
         </motion.div>
       </div>
     </div>
+    </RecaptchaProviderWrapper>
   );
 }

@@ -30,7 +30,7 @@ export default function OtherSolutionPage({ data }: PageProps) {
   
 
       const otherSolutions = fabricModules.filter(
-        i => i.name !== (data?.name || null) 
+        i => i.slug !== (data?.slug || null) 
       ).map(i=> ({
         href: i.href,
         name:i.name,
@@ -41,34 +41,47 @@ export default function OtherSolutionPage({ data }: PageProps) {
     <div className="bg-brand-bg text-gray-800 font-inter leading-relaxed">
       <div className="container mx-auto md:p-10 max-w-7xl relative">
         {/* Header */}
-        <header className="sticky top-[4.5rem] z-30 text-center mb-12 bg-gray-50 py-3">
-          <h1 className="text-4xl md:text-4xl py-1 font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+        <header className="sticky top-0 md:top-[4.5rem] z-30 text-center mb-12 bg-gray-50 py-3">
+          <h1
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
+                      py-1 font-extrabold mb-3 
+                      bg-clip-text text-transparent 
+                      bg-gradient-to-r from-teal-400 to-blue-500"
+          >
             {data.name}
           </h1>
         </header>
 
         {/* Overview */}
-        <section className="mb-12">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold text-blue-600 mb-6">
+        <section className="mb-12 px-4  ">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-8 lg:gap-12">
+            {/* Text Section */}
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600 mb-4 md:mb-6">
                 Solution Overview
               </h2>
-              <p className="text-gray-700 text-lg mb-4">{data?.overview?.desc}</p>
+              <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                {data?.overview?.desc}
+              </p>
             </div>
 
-            <div className="flex-1">
-              <img
-                src={data?.overview?.src?.asset?.url}
-                alt={data.name}
-                className="w-full rounded-xl shadow-lg object-cover"
-              />
+            {/* Image Section */}
+            <div className="flex-1 w-full">
+              <div className="w-full h-[35vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden rounded-xl shadow-lg">
+                <img
+                  src={data?.overview?.src?.asset?.url}
+                  alt={data?.name || "Overview image"}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </section>
 
+
         {/* Objectives */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <h2 className="text-3xl font-bold text-blue-600 mb-6">Objectives</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {data.objectives?.map((item, i) => (
@@ -82,7 +95,28 @@ export default function OtherSolutionPage({ data }: PageProps) {
               </div>
             ))}
           </div>
+        </section> */}
+
+        <section className="mb-12 px-4 ">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600 mb-8 text-center md:text-left">
+            Objectives
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {data.objectives?.map((item, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 
+                          p-6 flex flex-col items-start gap-3 border-t-4 border-red-500 hover:-translate-y-1"
+              >
+                <span className="text-3xl sm:text-4xl">{item.icon}</span>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{item.title}</h3>
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </section>
+
 
         
 
@@ -178,7 +212,7 @@ export default function OtherSolutionPage({ data }: PageProps) {
       <OtherSolutionsSection solutions={data?.related} />
     )}
     </div>
-    <AppGridSection title="Explore other solutions" items={otherSolutions}/>
+    <AppGridSection title="Explore other solutions" items={otherSolutions.slice(0,7)}/>
 
         {/* Contact CTA */}
         <section className="py-20 bg-gradient-to-r from-blue-600 to-teal-500 text-white text-center">

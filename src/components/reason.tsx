@@ -375,14 +375,14 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                       }}
                         onClick={handleCardClick}
                     >
-                      <div className="bg-white rounded-xl shadow flex flex-col h-[65vh]">
+                      <div className="bg-white rounded-xl shadow flex flex-col h-[60vh]">
                         
                           {/* Index badge */}
                           <div className="absolute -top-3 z-50 left-[45%] w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold shadow-md">
                             {globalIndex}
                           </div>
-                          <div className="py-3 mt-3 w-full">
-                          <h3 className="text-lg  mb-2 text-blue-700 text-center font-semibold">
+                          <div className="py-2 mt-2 w-full">
+                          <h3 className="text-lg  mb-1 text-blue-700 text-center font-semibold">
                             {fact.title}
                           </h3>
                           </div>
@@ -392,14 +392,14 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                             <img
                               src={fact.image}
                               alt={fact.title}
-                              className="w-[200px] h-[140px] sm:w-[240px] sm:h-[170px] md:w-[280px] md:h-[200px] lg:w-[320px] lg:h-[200px] object-cover rounded-md mb-3"
+                              className="w-[200px] h-[140px] sm:w-[240px] sm:h-[170px] md:w-[280px] md:h-[170px]  object-cover rounded-md"
                             />
                         </div>
                       
 
                         {/* Content */}
                         <div className="py-4 px-1 flex flex-col flex-1">
-                          <ul className="list-disc list-inside text-sm mb-3 overflow-y-auto flex-1">
+                          <ul className="list-disc list-inside text-sm mb-1 overflow-y-auto flex-1">
                             {fact.points.map((point, idx) => (
                               <li key={idx}>{point}</li>
                             ))}

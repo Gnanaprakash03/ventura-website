@@ -547,6 +547,7 @@ const colorClasses = [
 
 export const fabricModules = [
   {
+    slug: 'greige',
     _key: '23e9abdc51f3',
     name: 'Greige Fabric',
     description: 'Greige Fabric Inspection Software',
@@ -554,6 +555,7 @@ export const fabricModules = [
     href:"/solutions/greige"
   },
   {
+    slug: "knitted",
     _key: '419708624844',
     name: 'Knitted Fabric',
     description: 'Knitted Fabric Inspection Software',
@@ -561,6 +563,7 @@ export const fabricModules = [
     href:"/solutions/knitted"
   },
   {
+    slug: "processed-fabric-inspection-software",
     _key: 'c9d2fae184b5',
     name: 'Processed Fabric',
     description: 'Processed Fabric Inspection Software',
@@ -568,6 +571,7 @@ export const fabricModules = [
     href: "/solutions/processed-fabric-inspection-software"
   },
   {
+    slug: "denim",
     _key: 'd705d55d285c',
     name: 'Denim Fabric',
     description: 'Cut Optimization Module',
@@ -575,27 +579,31 @@ export const fabricModules = [
     href:"/solutions/denim"
   },
   {
+    slug: "measurement-alerting-system",
     _key: '703943684519',
     name: 'Automotive Fabric',
     description: 'Seating Fabric Inspection Solutions',
     icon: '🏷️', // changed — represents labeling, barcode, traceability
-    href:"/solutions/automotive-panel-traceability-packaging-system"
+    href: "/solutions/measurement-alerting-system",
   },
   {
+    slug: "home-textiles",
     _key: 'd72042400807',
     name: 'Home Textiles',
     description: 'Specifically Developed to Suit Industry Needs',
     icon: '🏠',
     href:"/solutions/home-textiles"
   },
+  // {
+  //   slug:"",
+  //   _key: 'd72042400807',
+  //   name: 'Technical Textiles',
+  //   description: 'Specifically Developed to technical Industry Needs',
+  //   icon: '🧰',
+  //   href:"/solutions/technical-textiles"
+  // },
   {
-    _key: 'd72042400807',
-    name: 'Technical Textiles',
-    description: 'Specifically Developed to technical Industry Needs',
-    icon: '🧰',
-    href:"/solutions/technical-textiles"
-  },
-  {
+    slug: "apparel",
     _key: 'a1cdd02af114',
     name: 'Apparel Manufacturing',
     description: 'Fabric Inspection for Readymade Garmenting',
@@ -603,6 +611,7 @@ export const fabricModules = [
     href:"/solutions/apparel"
   },
   {
+    slug:"",
     _key: 'b4e8cda372f9',
     name: 'Shirting & Suiting (Than Management)',
     description: 'Shirting and Suiting Fabric Inspection Software',
@@ -876,10 +885,11 @@ export default function FidasContent() {
            
           <div className=' my-5  z-50 rounded-2xl px-4'>
             {/* <ScrollAnimationWrapper> */}
-           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-center mb-1 bg-clip-text text-slate-900 bg-gradient-to-r from-blue-600 to-teal-400 flex justify-center items-center gap-2 relative">
+           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-center mb-1 bg-clip-text text-slate-900 bg-gradient-to-r from-blue-600 to-teal-400 flex flex-wrap justify-center items-center gap-2 relative">
               {/* {pageData.twentyReasons?.sectionTitle || "FIDAS is the right choice for computerization of Fabric Inspection: 20 Reasons"}   */}
                <span className='text-blue-700'>{factsData?.Prefix}</span>{" "}
-               - {factsData?.heading} <FaChess className="w-20 h-20 text-blue-700 pl-5 relative" />
+               - {factsData?.heading} 
+               {/* <FaChess className="w-20 h-20 text-blue-700 pl-5 relative" /> */}
             </h2>
           {/* </ScrollAnimationWrapper> */}
           </div>
@@ -936,96 +946,7 @@ export default function FidasContent() {
 
         <section className="py-16 bg-gray-50">
 
-          {/* <div className="max-w-7xl mx-auto px-4 mb-6 text-center relative">
-            <h2 className=" text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-center font-bold mb-1 py-2  bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400">
-              Hardware Integrations</h2>
-            <p className="text-gray-600 ">
-              FIDAS seamlessly integrates with leading ERP and production management systems, enabling automatic data exchange for inspection results, fabric roll tracking, and quality reports. This ensures smooth workflow automation, real-time visibility, and accurate updates across your entire production process.
-            </p> */}
 
-          {/* <div className="relative w-full max-w-5xl mx-auto pb-3">
-            <img
-              src="/images/Hardware-integration.gif"
-              alt="FIDAS Integration Diagram showing connections between SAP, WhatsApp, Email, SCM Cloud, Analytics, and more"
-              className="w-full h-auto animate-fade-in-up"
-            />
-          </div> */}
-
-          {/* <div className="relative w-full min-h-screen flex items-center justify-center bg-blue-50 overflow-hidden">
-            {/* Central Logo 
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1 }}
-              className="absolute w-32 h-32 bg-gradient-to-r from-blue-600 to-teal-400 rounded-full flex items-center justify-center text-5xl font-bold text-white shadow-[0_0_40px_rgba(0,255,255,0.5)] z-10"
-            >
-              f
-            </motion.div>
-
-            {/* Inner Ring 
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
-              className="absolute w-[500px] h-[500px]"
-            >
-              {innerRing.map((item, i) => {
-                const angle = (i / innerRing.length) * 2 * Math.PI;
-                const radius = 160;
-                const x = radius * Math.cos(angle);
-                const y = radius * Math.sin(angle);
-                return (
-                  <motion.div
-                    key={i}
-                    className="absolute flex flex-col items-center justify-center w-24 h-24 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full shadow-lg backdrop-blur-sm cursor-pointer text-white text-xs text-center p-2"
-                    style={{
-                      top: `calc(50% + ${y}px - 48px)`,
-                      left: `calc(50% + ${x}px - 48px)`,
-                    }}
-                    whileHover={{ scale: 1.2 }}
-                    
-                            animate={{ rotate: -360 }}
-                            transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-                  >
-                    {item}
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-
-            {/* Outer Ring 
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ repeat: Infinity, duration: 80, ease: "linear" }}
-              className="absolute w-[800px] h-[800px]"
-            >
-              {outerRing.map((item, i) => {
-                const angle = (i / outerRing.length) * 2 * Math.PI;
-                const radius = 280;
-                const x = radius * Math.cos(angle);
-                const y = radius * Math.sin(angle);
-                return (
-                  <motion.div
-                    key={i}
-                    className="absolute flex flex-col items-center justify-center w-24 h-24 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full shadow-lg backdrop-blur-sm cursor-pointer text-white text-xs text-center p-2"
-                    style={{
-                      top: `calc(50% + ${y}px - 48px)`,
-                      left: `calc(50% + ${x}px - 48px)`,
-                    }}
-                    whileHover={{ scale: 1.2 }}
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-                  >
-                    {item}
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </div>
-             */}
-             
-{/* 
-          </div> */}
-{/* 
-          <NeuralCarousel /> */}
 
           <HardwareSection />
 
@@ -1036,31 +957,6 @@ export default function FidasContent() {
               FIDAS seamlessly integrates with leading ERP and production management systems, enabling automatic data exchange for inspection results, fabric roll tracking, and quality reports. This ensures smooth workflow automation, real-time visibility, and accurate updates across your entire production process.
             </p>
 
-          
-            {/* <h3 className='text-3xl text-center font-semibold py-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400'>Integration Options</h3>
-
-            {/* Integration Icon Cards 
-            <div className="grid md:grid-cols-3 gap-6 ">
-              <div className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition hover:scale-105">
-                 <FaFileExcel className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <h3 className="font-semibold mb-2">Excel Integration</h3>
-                <p className="text-gray-500 text-sm">Free on SAP without license</p>
-              </div>
-
-              <div className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition hover:scale-105">
-                <FaFileCsv className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <h3 className="font-semibold mb-2">CSV Integration</h3>
-                <p className="text-gray-500 text-sm">Free on SAP without license</p>
-              </div>
-
-              <div className="bg-white rounded-xl shadow p-6  hover:shadow-lg transition hover:scale-105">
-                <FaServer className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <h3 className="font-semibold mb-2">API Integration</h3>
-                <p className="text-gray-500 text-sm">License as per usage</p>
-              </div>
-            </div> */}
-
-             
 
              <div className="relative flex items-center justify-center w-full h-[500px]">
               {/* Center Circle */}

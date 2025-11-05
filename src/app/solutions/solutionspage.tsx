@@ -342,7 +342,7 @@ function HeroSlideshow() {
           onClick={() =>
             document.getElementById("industries")?.scrollIntoView({ behavior: "smooth" })
           }
-          className="bg-blue-500 text-white hover:bg-blue-700 hover:scale-105 font-medium text-lg rounded-full px-8 py-3 self-center"
+          className="bg-white/20 backdrop-blur-md text-white hover:text-cyan-800  hover:bg-white hover:scale-105 font-medium text-lg rounded-full px-8 py-3 self-center"
         >
           Explore Solutions
         </Button>

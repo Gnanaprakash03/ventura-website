@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import FlyingWhatsApp from "@/components/ui/whatsapp";
 import Script from "next/script";
+import RecaptchaProviderWrapper from "@/components/ui/RecaptchaProviderWrapper";
 
 const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics'), { ssr: false });
 
@@ -91,6 +92,7 @@ export default function RootLayout({
       </head>
        
       <body className={`${inter.className} bg-gray-50 min-h-screen flex flex-col`}>
+        <RecaptchaProviderWrapper>
         <Navbar />
         <MainContentWrapper>{children}</MainContentWrapper>
         <FlyingWhatsApp phoneNumber="9962936356"/>
@@ -99,6 +101,7 @@ export default function RootLayout({
         {/* <Suspense fallback={null}>
           <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
         </Suspense> */}
+        </RecaptchaProviderWrapper>
       </body>
     </html>
   );

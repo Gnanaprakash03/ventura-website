@@ -1,54 +1,90 @@
-import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: Number(process.env.EMAIL_PORT),
-  secure: Number(process.env.EMAIL_PORT) === 465
-,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { firstName, lastName, email, message, phoneNumber, jobTitle, companyName, interests} = body;
+    const {
+      firstName,
+      workEmail,
+      phoneNumber,
+      jobTitle,
+      companyName,
+      message,
+      interests,
+      otherInterest,
+      recaptchaToken,
+    } = body;
 
-    // 1️⃣ Send email to yourself
-    await transporter.sendMail({
-      from: `"Fidas.in" <${process.env.EMAIL_FROM}>`,
-      to: process.env.EMAIL_FROM,
-      subject: `New Contact Form Submission from ${firstName} ${lastName}`,
+    if (!workEmail) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
+    if (!recaptchaToken) {
+      return NextResponse.json({ error: "reCAPTCHA token missing" }, { status: 400 });
+    }
+
+    // ✅ Verify reCAPTCHA (server-side)
+    const recaptchaResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+    });
+
+    const recaptchaData = await recaptchaResponse.json();
+
+    if (!recaptchaData.success) {
+      console.error("reCAPTCHA verification failed:", recaptchaData);
+      return NextResponse.json(
+        { error: "reCAPTCHA failed. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    // ✅ Send to Formspree (optional)
+    await fetch("https://formspree.io/f/xwppwzlq", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        email: workEmail,
+        phoneNumber,
+        jobTitle,
+        companyName,
+        message,
+        interests,
+        otherInterest,
+      }),
+    });
+
+    // ✅ Send auto-reply email via Resend
+    await resend.emails.send({
+      from: "Fidas Contact <contact@fidas.in>",
+      to: workEmail,
+      subject: "Thank you for contacting Fidas!",
       html: `
-        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone No:</strong> ${phoneNumber}</p>
-        <p><strong>Company Name:</strong> ${companyName}</p>
-        ${jobTitle ? `<p><strong>Job Title:</strong> ${jobTitle}</p>` : ''}
-        <p><strong>Interests:</strong> ${interests}</p>
-        ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
+        <div style="font-family: Arial; color: #333;">
+          <h2>Hi ${firstName || "there"},</h2>
+          <p>Thank you for contacting Fidas! We’ve received your message:</p>
+          <blockquote style="border-left: 3px solid #ddd; padding-left: 10px;">
+            ${message || "(No message provided)"}
+          </blockquote>
+          <p>Our team will get back to you shortly.</p>
+          <p style="margin-top: 20px;">– Fidas Team</p>
+        </div>
       `,
-
     });
 
-    // 2️⃣ Send thank-you email to user
-    await transporter.sendMail({
-      from: `"FIDAS" <${process.env.EMAIL_FROM}>`,
-      to: email,
-      subject: "Thank you for contacting us!",
-      html: `<p>Hi ${firstName},</p>
-             <p>Thank you for reaching out. We have received your message and will get back to you shortly.</p>
-             <p>Best regards,<br/>Your Company</p>`,
-    });
-
-    return NextResponse.json({ message: "Emails sent successfully!" });
-  } catch (error: any) {
-    console.error(error);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Contact API error:", error);
     return NextResponse.json(
-      { message: "Email sending failed", error: error.message },
+      { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

@@ -55,10 +55,17 @@ export default function Navbar() {
 
   return (
     <div className="relative md:fixed bg-inherit top-0 left-0 right-0 z-50">
-      <div className="max-w-7.5xl mx-auto  mt-4">
+      <div className="max-w-7.5xl mx-auto px-3 mt-4">
         <div className="flex justify-between items-center gap-4">
           <Link href="/" className="flex-shrink-0">
-            <Image src="/images/Ventura.png" alt="Ventura Logo" width={100} height={40} />
+            <Image
+              src="/images/Ventura.png"
+              alt="Ventura Logo"
+              width={200}  // intrinsic size, any value
+              height={80}
+              className="h-auto max-h-10 w-auto sm:max-h-12 md:max-h-14 lg:max-h-16"
+              priority
+            />
           </Link>
 
           <div className="hidden md:block flex-1 max-w-3xl mx-auto mb-3px">
@@ -317,10 +324,9 @@ function NavbarContent({ isMobile = false, pathname, isScrolled, setIsMenuOpen }
                       >
                         {col.image && (
                         <div className="relative w-[100px] h-[90px] overflow-hidden rounded-md mb-2">
-                          <Image
+                          <img
                             src={col.image.src}
                             alt={col.image.alt}
-                            fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
                           />
                         </div>
@@ -439,11 +445,11 @@ function NavbarContent({ isMobile = false, pathname, isScrolled, setIsMenuOpen }
                                 }}>
                                {column.image && (
                                   <div className="relative w-[160px] h-[150px] mt-5 mb-2 overflow-hidden rounded-lg">
-                                    <Image
+                                    <img
                                       src={column.image.src}
                                       alt={column.image.alt}
-                                      fill
-                                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                      
+                                      className="h-[150px] object-cover transition-transform duration-300 group-hover:scale-105"
                                     />
                                   </div>
                                 )}

@@ -6,7 +6,7 @@ export default function MainContentWrapper({ children }: { children: React.React
   const pathname = usePathname();
   
   return (
-    <main className={`flex-grow ${pathname === '/' ? '' : 'pt-24'}`}>
+    <main className={`flex-grow `}>
       {children}
     </main>
   );

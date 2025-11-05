@@ -2,8 +2,6 @@
 import React, { act } from "react";
 import {motion} from "framer-motion"
 import Image from "next/image";
-import { industries } from "@/data/industries";
-import { othersolutions } from "@/data/solutions";
 import { fabricModules } from "@/components/FidasContent";
 import { ScrollAnimationWrapper } from "@/components/ScrollAnimationWrapper";
 
@@ -35,6 +33,7 @@ const floatingAnimation = {
   }
 };
 interface IndustryPageData {
+  slug: string
   name: string
   desc: string
   workflow?: { src?: { asset?: { url: string } } }
@@ -46,7 +45,7 @@ interface IndustryPageData {
   image?: { src?: { asset?: { url: string } }; alt?: string }
   ctaText?: string
   ctaLink?: string
-  related?: { slug: string; name: string; img?: { asset?: { url: string } } }[]
+  related?: { slug: string; name: string; image?: { asset?: { url: string } } }[]
 }
 
 interface SolutionPageProps {
@@ -67,19 +66,11 @@ export default function SolutionPage({ data }: SolutionPageProps) {
 
   if (!data) return <p className="py-16 text-center">Solution not found.</p>;
 
-  const otherSolution: SolutionCard[] =
-  data?.related?.map((item) => ({
-    slug: item.slug,
-    name: item.name,
-    img: {
-      src: { asset: { url: item.img?.asset?.url || "/placeholder.jpg" } },
-      alt: item.name,
-    },
-  })) || []
+  
    
 
     const otherSolutions = fabricModules.filter(
-      i => i.name !== data.name
+      i => i.slug !== (data?.slug || null)
     ).map(i=> ({
       href: i.href,
       name:i.name,
@@ -134,7 +125,7 @@ export default function SolutionPage({ data }: SolutionPageProps) {
       )}
 
       {data.workflow && (
-      <section className="my-8 flex justify-center">
+      <section className="my-8 px-2 flex justify-center">
         <div className="relative w-full max-w-7.5xl px-auto py-8">
           {/* Title at top-left */}
           <h2 className=" text-3xl font-bold text-blue-600 px-3 py-1 rounded-md shadow-sm">
@@ -142,16 +133,20 @@ export default function SolutionPage({ data }: SolutionPageProps) {
           </h2>
 
           {/* Image */}
-          <div className="relative w-full h-[32rem]">
-          {data?.image?.src?.asset?.url ? (
-          <Image
-            src={`${data?.workflow.src?.asset?.url}`}
+          <div className="relative w-full h-[14rem] sm:h-[24rem] md:h-[28rem] lg:h-[32rem] xl:h-[36rem]">
+          {data?.workflow?.src?.asset?.url && (
+            <Image
+              src={data.workflow.src.asset.url}
               alt={data.name || "Industry image"}
               fill
-              className="object-fit rounded-none shadow-lg"
-          />
-          ) : null}
-          </div>
+              priority
+              className="object-cover rounded-none shadow-lg"
+              sizes="(max-width: 640px) 100vw,
+                    (max-width: 1024px) 100vw,
+                    80vw"
+            />
+          )}
+        </div>
 
         </div>
       </section>
@@ -194,31 +189,6 @@ export default function SolutionPage({ data }: SolutionPageProps) {
       </div>
       )}
 
-
-
-      
-      {/* <section className="py-16 px-4 md:px-12 bg-gradient-to-r from-gray-50 to-gray-100">
-  <h2 className="text-4xl font-bold text-center text-blue-700 mb-12">
-    Features
-  </h2>
-  <div className="grid md:grid-cols-2 gap-8">
-    {activeIndustry.features.map((feature, idx) => (
-      <motion.div
-        key={idx}
-        className="relative bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-transform transform hover:-translate-y-1"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: idx * 0.2 }}
-      >
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-          {feature.title}
-        </h3>
-        <p className="text-gray-700 text-lg">{feature.text}</p>
-      </motion.div>
-    ))}
-  </div>
-</section> */}
 <section className="py-16   bg-gradient-to-r from-gray-50 to-gray-100">
   <h2 className="text-4xl font-bold text-start text-blue-700 mb-12">
     Features
@@ -239,41 +209,6 @@ export default function SolutionPage({ data }: SolutionPageProps) {
     ))}
   </div>
 </section>
-
-
-
-{/* 
-        <section className="py-16 px-4 md:px-12 bg-gradient-to-r from-gray-50 to-gray-100">
-      <h2 className="text-4xl font-bold text-center text-blue-700 mb-12">
-        Features
-      </h2>
-      <div className="grid md:grid-cols-2 gap-8">
-        {activeIndustry.features.map((feature, idx) => {
-          const Icon = featureIcons[idx % featureIcons.length];
-          return (
-            <motion.div
-              key={idx}
-              className="relative bg-white rounded-xl shadow-lg p-6 flex items-start gap-4 hover:shadow-2xl transition-transform transform hover:-translate-y-1"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.2 }}
-            >
-              <motion.div
-                className="flex-shrink-0 w-14 h-14 bg-gradient-to-tr from-blue-500 to-teal-400 text-white rounded-full flex items-center justify-center text-2xl"
-                animate={{
-                  y: [0, -8, 0], // up-down motion
-                  transition: { duration: 3, repeat: Infinity, repeatType: "loop" },
-                }}
-              >
-                <Icon />
-              </motion.div>
-              <p className="text-gray-700 text-lg">{feature}</p>
-            </motion.div>
-          );
-        })}
-      </div>
-    </section> */}
 
 
         
@@ -313,12 +248,12 @@ export default function SolutionPage({ data }: SolutionPageProps) {
 
     
     {data.related && ( 
-      <OtherSolutionsSection solutions={otherSolution} />
+      <OtherSolutionsSection solutions={data?.related} />
     )}
     
       
     </div>
-    <AppGridSection title="Explore Other Solutions" items={otherSolutions} />
+    <AppGridSection title="Explore Other Solutions" items={otherSolutions.slice(0,7)} />
 
       <motion.div
       className=" bg-gradient-to-r from-blue-500 via-teal-400 to-cyan-500 animate-gradient-x
@@ -347,7 +282,7 @@ export default function SolutionPage({ data }: SolutionPageProps) {
       </motion.p>
 
       <motion.a
-        href={data.ctaLink}
+        href={'/contact'}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.96 }}
         className="inline-block relative group"
@@ -478,52 +413,153 @@ export const  AppGridSection: React.FC<AppGridSectionProps> = ({ title, items })
 
 
   return (
+//     <section className="py-12 bg-gradient-to-br from-slate-50 to-slate-100">
+//       <div className="max-w-7.5xl mx-auto px-6 text-center">
+//         {/* Section Title */}
+//         <h2 className="text-3xl md:text-3xl font-bold text-blue-700 mb-10">
+//           {title}
+//         </h2>
+
+//         {/* Grid Layout */}
+//        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+//         <motion.div
+//             className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 order-2 md:order-1"
+//             style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+//             variants={staggerChildren}
+
+//           >
+//             {items.map((industry, index) => (
+//             <ScrollAnimationWrapper key={index}>
+//               <Link href={industry.href} legacyBehavior>
+//               <motion.div
+//                 className="bg-white bg-opacity-50 h-40 backdrop-filter backdrop-blur-lg rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:bg-opacity-70 flex flex-col items-center justify-center py-6"
+//                 variants={fadeInUp}
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//               >
+//                 {/* Icon */}
+//                 <motion.div
+//                   className="text-5xl mb-3 text-blue-600"
+//                   animate={floatingAnimation}
+//                 >
+//                   {industry.icon}
+//                 </motion.div>
+
+//                 {/* Name */}
+//                 <h4 className="text-sm sm:text-base font-semibold text-slate-800 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400">
+//                   {industry.name}
+//                 </h4>
+                
+//               </motion.div>
+//               </Link>
+//             </ScrollAnimationWrapper>
+//           ))}
+//         </motion.div>
+// </div>
+
+//       </div>
+//     </section>
+
     <section className="py-12 bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-7.5xl mx-auto px-6 text-center">
-        {/* Section Title */}
-        <h2 className="text-3xl md:text-3xl font-bold text-blue-700 mb-10">
-          {title}
-        </h2>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {/* Section Title */}
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-700 mb-10">
+      {title}
+    </h2>
 
-        {/* Grid Layout */}
-       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-        <motion.div
-            className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 order-2 md:order-1"
-            style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
-            variants={staggerChildren}
-
-          >
-            {items.map((industry, index) => (
-            <ScrollAnimationWrapper key={index}>
-              <Link href={industry.href} legacyBehavior>
+    {/* Grid Layout */}
+    {/* <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      <motion.div
+        className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 md:gap-8 order-2 md:order-1"
+        variants={staggerChildren}
+        // style={{
+        //   gridTemplateColumns: `repeat(${Math.min(items.length, 5)}, minmax(0, 1fr))`,
+        // }}
+      >
+        {items.map((industry, index) => (
+          <ScrollAnimationWrapper key={index}>
+            <Link href={industry.href} legacyBehavior>
               <motion.div
-                className="bg-white bg-opacity-50 h-40 backdrop-filter backdrop-blur-lg rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:bg-opacity-70 flex flex-col items-center justify-center py-6"
+                className="bg-white bg-opacity-50 h-36 sm:h-40 backdrop-filter backdrop-blur-lg 
+                           rounded-2xl shadow-md overflow-hidden transform transition-all duration-300 
+                           hover:scale-105 hover:bg-opacity-70 flex flex-col items-center justify-center py-6"
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Icon */}
+                {/* Icon 
                 <motion.div
-                  className="text-5xl mb-3 text-blue-600"
+                  className="text-4xl sm:text-5xl mb-3 text-blue-600"
                   animate={floatingAnimation}
                 >
                   {industry.icon}
                 </motion.div>
 
-                {/* Name */}
-                <h4 className="text-sm sm:text-base font-semibold text-slate-800 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400">
+                {/* Name 
+                <h4 className="text-sm sm:text-base md:text-lg font-semibold text-slate-800 text-center 
+                               bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400">
                   {industry.name}
                 </h4>
-                
               </motion.div>
-              </Link>
-            </ScrollAnimationWrapper>
-          ))}
-        </motion.div>
-</div>
+            </Link>
+          </ScrollAnimationWrapper>
+        ))}
+      </motion.div>
+    </div> */}
 
-      </div>
-    </section>
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+  <motion.div
+    className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6 order-2 md:order-1"
+    variants={staggerChildren}
+  >
+    {items.map((industry, index) => (
+      <ScrollAnimationWrapper key={index}>
+        <Link href={industry.href} legacyBehavior>
+          <motion.div
+            className="group relative bg-gradient-to-br from-white/80 to-white/40 h-36 sm:h-40 
+                       backdrop-blur-xl rounded-3xl shadow-lg overflow-hidden 
+                       transition-all duration-500 cursor-pointer
+                       hover:shadow-2xl hover:shadow-blue-500/20
+                       border border-white/50 hover:border-blue-300/50
+                       flex flex-col items-center justify-center p-6"
+            variants={fadeInUp}
+            whileHover={{ scale: 1.08,  }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {/* Gradient overlay on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-teal-500/0 
+                          group-hover:from-blue-500/5 group-hover:to-teal-500/5 
+                          transition-all duration-500" />
+            
+            {/* Icon */}
+            <motion.div
+              className="relative text-4xl sm:text-5xl mb-3 
+                         text-blue-600 group-hover:text-blue-700
+                         transition-colors duration-300
+                         drop-shadow-sm"
+              animate={floatingAnimation}
+            >
+              {industry.icon}
+            </motion.div>
+
+            {/* Name */}
+            <h4 className="relative text-sm sm:text-base font-bold text-center 
+                           bg-clip-text text-transparent bg-gradient-to-r 
+                           from-slate-700 via-slate-800 to-slate-700
+                           group-hover:from-blue-600 group-hover:via-blue-700 group-hover:to-teal-500
+                           transition-all duration-300
+                           leading-tight">
+              {industry.name}
+            </h4>
+          </motion.div>
+        </Link>
+      </ScrollAnimationWrapper>
+    ))}
+  </motion.div>
+</div>
+  </div>
+</section>
+
   );
 };
 
