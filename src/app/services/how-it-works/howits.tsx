@@ -68,7 +68,7 @@ function StaticSections({ sections }: { sections: Section[] }) {
 
       {sections.map((sec, i) => (
         <div key={i} className="flex flex-col items-center gap-6">
-        <Image src={sec.img} alt={sec.title} width={800} height={600} className="rounded-lg shadow-md object-cover" />
+        <Image src={sec.imgurl} alt={sec.title} width={800} height={600} className="rounded-lg shadow-md object-cover" />
 
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-semibold text-blue-600 mb-2">
@@ -118,7 +118,7 @@ function AnimatedSectionItem({
           <div className="flex-1 flex justify-center">
             <div className="relative w-full max-w-[500px] aspect-[5/3]">
               <Image
-                src={sec?.img}
+                src={sec?.imgurl}
                 alt={sec.title}
                 fill
                 className="rounded-lg shadow-md object-cover"
@@ -132,7 +132,7 @@ function AnimatedSectionItem({
           <div className="flex-1 flex justify-center">
              <div className="relative w-full max-w-[500px] aspect-[5/3]">
                 <Image
-                  src={sec?.img}
+                  src={sec?.imgurl}
                   alt={sec.title}
                   fill
                   className="rounded-lg shadow-md object-cover"
