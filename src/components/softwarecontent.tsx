@@ -28,7 +28,7 @@ export default function SoftwareIntegrations({ nodes }: { nodes: any[] }) {
       </h2>
 
       {/* Description */}
-      <p className="text-gray-600 mb-6 text-sm sm:text-base max-w-4xl mx-auto">
+      <p className="text-gray-600 mb-6 text-sm sm:text-base max-w-6xl mx-auto">
         FIDAS seamlessly integrates with leading ERP and production management
         systems, enabling automatic data exchange for inspection results,
         fabric roll tracking, and quality reports. This ensures smooth workflow
@@ -38,7 +38,7 @@ export default function SoftwareIntegrations({ nodes }: { nodes: any[] }) {
 
       {/* Orbit Section */}
       <div
-        className="relative flex items-center justify-center w-full h-[320px] sm:h-[420px] md:h-[500px] overflow-hidden"
+        className="relative flex items-center justify-center w-full h-[360px] sm:h-[420px] md:h-[510px] overflow-hidden"
         aria-label="Software Integrations Orbit"
       >
         {/* Center Circle */}
@@ -142,11 +142,11 @@ function OrbitSection({ nodes, radius }: { nodes: any[]; radius: number }) {
             <Image
               src={node.icon}
               alt={node.label}
-              width={40}
-              height={40}
+              width={50}
+              height={50}
               className="object-contain"
             />
-            <span className="absolute bottom-[-1.8rem] left-1/2 -translate-x-1/2 bg-gradient-to-r from-teal-400 to-blue-500 text-white text-[10px] sm:text-xs font-medium px-2 py-1 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-30">
+            <span className="absolute bottom-[-1.8rem] left-1/2 -translate-x-1/2 bg-gradient-to-r from-teal-400 to-blue-500 text-white text-[10px] sm:text-xs font-medium px-2 py-1 rounded-md shadow-lg  transition-all duration-300 whitespace-nowrap z-30">
               {node.label}
             </span>
           </motion.div>

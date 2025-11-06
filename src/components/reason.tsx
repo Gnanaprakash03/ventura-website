@@ -390,14 +390,13 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                     </div>
 
                     {/* Image */}
-                    <div className="relative w-full h-40 sm:h-48 md:h-56">
+                    <div className="relative w-full h-40 sm:h-48 md:h-40">
                       <Image
                         src={fact.image}
                         alt={fact.title}
                         fill
                         className="object-cover rounded-md"
                         sizes="(max-width: 640px) 100vw,
-                                (max-width: 1024px) 50vw,
                                 100vw"
                       />
                     </div>
