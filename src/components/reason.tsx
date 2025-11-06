@@ -389,7 +389,7 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                           </div>
 
                         {/* Image */}
-                        <div className="relative w-full aspect-[250/170]">
+                        <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72">
                         <Image
                           src={fact.image}
                           alt={fact.title}
@@ -400,6 +400,7 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                                   100vw"
                         />
                       </div>
+
                       
 
                         {/* Content */}

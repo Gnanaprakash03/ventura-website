@@ -3,7 +3,6 @@ import SolutionPage from "./solution";
 import OtherSolutionPage from "./othersolution";
 import type { Metadata } from "next";
 import { getIndustryPageData, getOtherSolutionPageData } from "./utils";
-import { notFound } from "next/navigation";
 
 interface SolutionPageProps {
   params: { slug: string };
@@ -34,11 +33,10 @@ export default async function Solutions({ params }: PageProps) {
   // const Industry = await getIndustryPageData();
   // const activeIndustry = Industry.find((i) => i.slug === params.slug);
    const industryData = await getIndustryPageData();
-  const otherIndustryData = await getOtherSolutionPageData();
 
   // ✅ compare using slug.current
   const activeIndustry = industryData.find(
-    (i:any) => i.slug?.current === params.slug
+    (i:any) => i.slug === params.slug
   );
   if (activeIndustry) {
     return (
@@ -48,8 +46,10 @@ export default async function Solutions({ params }: PageProps) {
     );
   }
   // If not found → look in othersolutions
+  
+  const otherIndustryData = await getOtherSolutionPageData();
 
-    const activeOther = otherIndustryData.find((i:any) => i.slug?.current === params.slug);
+  const activeOther = otherIndustryData.find((i:any) => i.slug === params.slug);
   if (activeOther) {
     return (
       <div>
@@ -57,11 +57,6 @@ export default async function Solutions({ params }: PageProps) {
       </div>
     );
   }
-  console.log({
-  slug: params.slug,
-  industryFound: !!activeIndustry,
-  otherFound: !!activeOther,
-});
-
-  notFound();
+  
+ 
 }
