@@ -389,17 +389,17 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                           </div>
 
                         {/* Image */}
-                        <div className="flex justify-center items-center relative w-[280px] h-[170px] sm:w-[240px] sm:h-[170px] md:w-[280px] md:h-[170px]">
-                          <Image
-                            src={fact.image}
-                            alt={fact.title}
-                            fill
-                            className="object-cover rounded-md"
-                            sizes="(max-width: 640px) 240px,
-                                  (max-width: 768px) 280px,
-                                  280px"
-                          />
-                        </div>
+                        <div className="relative w-full aspect-[250/170]">
+                        <Image
+                          src={fact.image}
+                          alt={fact.title}
+                          fill
+                          className="object-cover rounded-md"
+                          sizes="(max-width: 640px) 100vw,
+                                  (max-width: 1024px) 50vw,
+                                  100vw"
+                        />
+                      </div>
                       
 
                         {/* Content */}
