@@ -53,17 +53,18 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="relative md:fixed bg-inherit top-0 left-0 right-0 z-50 pb-2">
-      <div className="max-w-7.5xl mx-auto px-3 mt-4">
-        <div className="flex justify-between items-center gap-4">
+    <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
+      ${isScrolled ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-md" : "bg-transparent"}
+`}> 
+      <div className="max-w-7.5xl mx-auto px-3 mt-1"> 
+        <div className="flex items-center justify-between w-full">
           <Link href="/" className="flex-shrink-0">
             <Image
               src="/images/Ventura.png"
               alt="Ventura Logo"
-              width={200}  // intrinsic size, any value
-              height={80}
-              style={{ height: "auto" }}
-              className="h-auto max-h-10 w-auto sm:max-h-10 md:max-h-12 lg:max-h-14"
+              width={160}
+              height={60}
+              className="h-auto w-auto max-h-10 sm:max-h-12"
               priority
             />
           </Link>

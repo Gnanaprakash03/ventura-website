@@ -342,121 +342,121 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
 
   return (
     <div
-      className="w-full max-w-7xl mx-auto px-4 relative mb-10"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+  className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative mb-10"
+  onTouchStart={handleTouchStart}
+  onTouchEnd={handleTouchEnd}
+>
+  {/* Slide Container */}
+  <div className="overflow-hidden pt-4">
+    <div
+      className="flex transition-transform duration-700"
+      style={{ transform: `translateX(-${currentPage * 100}%)` }}
     >
-      {/* Slide Container */}
-      <div className="overflow-hidden pt-4">
-        <div
-          className="flex transition-transform duration-700"
-          style={{ transform: `translateX(-${currentPage * 100}%)` }}
-        >
-          {pages.map((page, pageIndex) => {
-            const color = colors[pageIndex % colors.length];
-            return (
-              <div
-                key={pageIndex}
-                className="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-              >
-                {page.map((fact, i) => {
-                  const prevCount = pages
-                    .slice(0, pageIndex)
-                    .reduce((sum, p) => sum + p.length, 0);
-                  const globalIndex = prevCount + i + 1;
+      {pages.map((page, pageIndex) => {
+        const color = colors[pageIndex % colors.length];
+        return (
+          <div
+            key={pageIndex}
+            className="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          >
+            {page.map((fact, i) => {
+              const prevCount = pages
+                .slice(0, pageIndex)
+                .reduce((sum, p) => sum + p.length, 0);
+              const globalIndex = prevCount + i + 1;
 
-                  return (
-                    <div
-                      key={i}
-                      className="relative p-[15px] rounded-xl transition-all duration-700 hover:-translate-y-1 hover:shadow-xl"
-                      style={{
-                        backgroundColor: color.bg,
-                        borderColor: color.border,
-                        transitionDelay: `${i * 150}ms`,
-                      }}
-                        onClick={handleCardClick}
-                    >
-                      <div className="bg-white rounded-xl shadow flex flex-col h-[60vh]">
-                        
-                          {/* Index badge */}
-                          <div className="absolute -top-3 z-50 left-[45%] w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold shadow-md">
-                            {globalIndex}
-                          </div>
-                          <div className="py-2 mt-2 w-full">
-                          <h3 className="text-lg  mb-1 text-blue-700 text-center font-semibold">
-                            {fact.title}
-                          </h3>
-                          </div>
-
-                        {/* Image */}
-                        <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72">
-                        <Image
-                          src={fact.image}
-                          alt={fact.title}
-                          fill
-                          className="object-cover rounded-md"
-                          sizes="(max-width: 640px) 100vw,
-                                  (max-width: 1024px) 50vw,
-                                  100vw"
-                        />
-                      </div>
-
-                      
-
-                        {/* Content */}
-                        <div className="py-4 px-1 flex flex-col flex-1">
-                          <ul className="list-disc list-inside text-sm mb-1 overflow-y-auto flex-1">
-                            {fact.points.map((point, idx) => (
-                              <li key={idx}>{point}</li>
-                            ))}
-                          </ul>
-                          <p className="text-teal-700 font-bold text-center mt-auto">
-                            {fact.conclusion}
-                          </p>
-                        </div>
-                      </div>
-
+              return (
+                <div
+                  key={i}
+                  onClick={handleCardClick}
+                  className="relative p-3 sm:p-4 rounded-xl transition-all duration-700 hover:-translate-y-1 hover:shadow-xl"
+                  style={{
+                    backgroundColor: color.bg,
+                    borderColor: color.border,
+                    transitionDelay: `${i * 120}ms`,
+                  }}
+                >
+                  <div className="bg-white rounded-xl shadow flex flex-col h-[55vh] sm:h-[58vh] md:h-[60vh]">
+                    {/* Index badge */}
+                    <div className="absolute -top-3 z-50 left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold shadow-md">
+                      {globalIndex}
                     </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
-      {/* Left Arrow */}
-      <button
-        onClick={goToPrev}
-        className="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-200 p-3 rounded-full shadow z-10"
-        aria-label="Previous"
-      >
-        <FaArrowLeft className="text-gray-700 text-lg" />
-      </button>
+                    {/* Title */}
+                    <div className="py-2 mt-2 w-full">
+                      <h3 className="text-base sm:text-lg mb-1 text-blue-700 text-center font-semibold px-2">
+                        {fact.title}
+                      </h3>
+                    </div>
 
-      {/* Right Arrow */}
-      <button
-        onClick={goToNext}
-        className="absolute top-1/2 -right-8 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 p-3 rounded-full shadow z-10"
-        aria-label="Next"
-      >
-        <FaArrowRight className="text-white text-lg" />
-      </button>
+                    {/* Image */}
+                    <div className="relative w-full h-40 sm:h-48 md:h-56">
+                      <Image
+                        src={fact.image}
+                        alt={fact.title}
+                        fill
+                        className="object-cover rounded-md"
+                        sizes="(max-width: 640px) 100vw,
+                                (max-width: 1024px) 50vw,
+                                100vw"
+                      />
+                    </div>
 
-      {/* Pagination Dots */}
-      <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {pages.map((_, i) => (
-          <span
-            key={i}
-            onClick={() => goToPage(i)}
-            className={`w-3 h-3 rounded-full cursor-pointer transition-colors ${
-              i === currentPage ? "bg-blue-600" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
+                    {/* Content */}
+                    <div className="py-3 px-2 flex flex-col flex-1">
+                      <ul className="list-disc list-inside text-xs sm:text-sm mb-1 overflow-y-auto flex-1 leading-relaxed">
+                        {fact.points.map((point, idx) => (
+                          <li key={idx}>{point}</li>
+                        ))}
+                      </ul>
+                      <p className="text-teal-700 font-semibold text-center mt-auto text-sm sm:text-base">
+                        {fact.conclusion}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
-    
+  </div>
+
+  {/* Left Arrow */}
+  <button
+    onClick={goToPrev}
+    className="hidden sm:flex absolute top-1/2 -left-5 md:-left-8 transform -translate-y-1/2 
+               bg-gray-100 hover:bg-gray-200 p-2 sm:p-3 rounded-full shadow z-10 transition duration-200"
+    aria-label="Previous"
+  >
+    <FaArrowLeft className="text-gray-700 text-base sm:text-lg" />
+  </button>
+
+  {/* Right Arrow */}
+  <button
+    onClick={goToNext}
+    className="hidden sm:flex absolute top-1/2 -right-5 md:-right-8 transform -translate-y-1/2 
+               bg-blue-600 hover:bg-blue-700 p-2 sm:p-3 rounded-full shadow z-10 transition duration-200"
+    aria-label="Next"
+  >
+    <FaArrowRight className="text-white text-base sm:text-lg" />
+  </button>
+
+  {/* Pagination Dots (Hidden on Small Screens) */}
+  <div className="hidden md:flex absolute -bottom-8 left-1/2 transform -translate-x-1/2 space-x-2">
+    {pages.map((_, i) => (
+      <span
+        key={i}
+        onClick={() => goToPage(i)}
+        className={`w-3 h-3 rounded-full cursor-pointer transition-colors ${
+          i === currentPage ? "bg-blue-600" : "bg-gray-300 hover:bg-gray-400"
+        }`}
+      />
+    ))}
+  </div>
+</div>
+
   );
 }
 

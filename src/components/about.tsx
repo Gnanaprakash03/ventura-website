@@ -198,19 +198,16 @@ const startAutoSlide = useCallback(() => {
       {/* Left Arrow */}
       <button
         onClick={goToPrev}
-        className="absolute -left-10 top-[45%] -translate-y-1/2 bg-white/80 hover:bg-white text-blue-600 p-2 rounded-full shadow-md hover:shadow-lg transition-all  group-hover:opacity-100"
+        className="hidden md:flex absolute -left-6 lg:-left-10 top-[45%] -translate-y-1/2  bg-white/80 hover:bg-white text-blue-600 p-2 rounded-fullshadow-md hover:shadow-lg transition-all duration-300 group-hover:opacity-100"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
 
       {/* Benefits Grid */}
-      <div className="grid sm:grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
         {displayed.map((benefit, i) => { 
           const Icon = ICONS_MAP[benefit.icon] 
           return (
-
-
-
           <div
             key={i}
             className={`flex items-start gap-2 space-x-4 lg:h-28 bg-white p-4 my-1 rounded-xl shadow overflow-hidden hover:shadow-lg transition-all duration-700 ease-out transform
@@ -239,7 +236,7 @@ const startAutoSlide = useCallback(() => {
       {/* Right Arrow */}
       <button
         onClick={goToNext}
-        className="absolute -right-10 top-1/2 top-[45%] -translate-y-1/2 bg-white/80 hover:bg-white text-blue-600 p-2 rounded-full shadow-md hover:shadow-lg transition-all  group-hover:opacity-100"
+        className="hidden md:flex absolute -right-6 lg:-right-10 top-[45%] -translate-y-1/2  bg-white/80 hover:bg-white text-blue-600 p-2 rounded-full shadow-md hover:shadow-lg transition-all  group-hover:opacity-100"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
@@ -279,6 +276,179 @@ const startAutoSlide = useCallback(() => {
   );
 }
 
+// function BenefitsShowcase({ benefits }: { benefits: any[] }) {
+//   const [startIndex, setStartIndex] = useState(0);
+//   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+//   const BATCH_SIZE = 4;
+//   const totalBatches = Math.ceil(benefits.length / BATCH_SIZE);
+
+//   const startAutoSlide = useCallback(() => {
+//     if (intervalRef.current) clearInterval(intervalRef.current);
+//     intervalRef.current = setInterval(() => {
+//       setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
+//     }, 7000);
+//   }, [benefits.length]);
+
+//   useEffect(() => {
+//     startAutoSlide();
+//     return () => {
+//       if (intervalRef.current) clearInterval(intervalRef.current);
+//     };
+//   }, [startAutoSlide]);
+
+//   const goToNext = useCallback(() => {
+//     setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
+//     startAutoSlide();
+//   }, [benefits.length, startAutoSlide]);
+
+//   const goToPrev = useCallback(() => {
+//     setStartIndex((prev) =>
+//       prev - BATCH_SIZE < 0
+//         ? benefits.length - BATCH_SIZE
+//         : (prev - BATCH_SIZE) % benefits.length
+//     );
+//     startAutoSlide();
+//   }, [benefits.length, startAutoSlide]);
+
+//   const goToBatch = useCallback(
+//     (batchIndex: number) => {
+//       setStartIndex(batchIndex * BATCH_SIZE);
+//       startAutoSlide();
+//     },
+//     [startAutoSlide]
+//   );
+
+//   const visible = benefits.slice(startIndex, startIndex + BATCH_SIZE);
+//   const displayed =
+//     visible.length < BATCH_SIZE
+//       ? [...visible, ...benefits.slice(0, BATCH_SIZE - visible.length)]
+//       : visible;
+
+//   const ICONS_MAP: Record<string, any> = {
+//     FaCheckCircle,
+//     FaClock,
+//     FaDollarSign,
+//     FaUsers,
+//     FaChartLine,
+//     FaCloud,
+//     FaCogs,
+//     FaShieldAlt,
+//     FaRulerCombined,
+//     FaClipboardCheck,
+//     FaUserCheck,
+//     FaChartPie,
+//     FaFileAlt,
+//     FaPalette,
+//     FaProjectDiagram,
+//     FaChalkboardTeacher,
+//     FaServer,
+//     FaBarcode,
+//     FaSortAmountDown,
+//   };
+
+//   return (
+//     <div className="relative w-full group px-3 sm:px-4 md:px-6 lg:px-8">
+//       {/* Left Arrow */}
+//       <button
+//         onClick={goToPrev}
+//         className="hidden md:flex absolute -left-6 lg:-left-10 top-[45%] -translate-y-1/2 
+//                    bg-white/80 hover:bg-white text-blue-600 p-2 rounded-full 
+//                    shadow-md hover:shadow-lg transition-all duration-300 group-hover:opacity-100"
+//       >
+//         <ChevronLeft className="w-6 h-6" />
+//       </button>
+
+//       {/* Benefits Grid */}
+//       <div
+//         className="
+//           grid 
+//           grid-cols-1 
+//           sm:grid-cols-2 
+//           lg:grid-cols-2 
+//           xl:grid-cols-2 
+//           gap-4 sm:gap-6 md:gap-8
+//         "
+//       >
+//         {displayed.map((benefit, i) => {
+//           const Icon = ICONS_MAP[benefit.icon];
+//           return (
+//             <div
+//               key={i}
+//               className={`flex items-start gap-3 sm:gap-4 lg:gap-6 
+//                           bg-white p-4 sm:p-5  rounded-xl shadow-md 
+//                           hover:shadow-lg transition-all duration-700 ease-out 
+//                           opacity-0 translate-y-6 animate-slide-in`}
+//               style={{
+//                 animationDelay: `${i * 150}ms`,
+//                 animationFillMode: "forwards",
+//               }}
+//             >
+//               <div className="flex-shrink-0">
+//                 {Icon && (
+//                   <Icon className="text-blue-600 text-2xl sm:text-3xl lg:text-4xl mt-1" />
+//                 )}
+//               </div>
+//               <div className="flex flex-col">
+//                 <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+//                   {benefit.title}
+//                 </h3>
+//                 <p className="text-gray-600 text-sm sm:text-base text-justify leading-relaxed">
+//                   {benefit.description}
+//                 </p>
+//               </div>
+//             </div>
+//           );
+//         })}
+//       </div>
+
+//       {/* Right Arrow */}
+//       <button
+//         onClick={goToNext}
+//         className="hidden md:flex absolute -right-6 lg:-right-10 top-[45%] -translate-y-1/2 
+//                    bg-white/80 hover:bg-white text-blue-600 p-2 rounded-full 
+//                    shadow-md hover:shadow-lg transition-all duration-300 group-hover:opacity-100"
+//       >
+//         <ChevronRight className="w-6 h-6" />
+//       </button>
+
+//       {/* Pagination Dots */}
+//       <div className="flex justify-center mt-6 space-x-2">
+//         {Array.from({ length: totalBatches }).map((_, i) => (
+//           <span
+//             key={i}
+//             onClick={() => goToBatch(i)}
+//             className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all 
+//               ${
+//                 i === Math.floor(startIndex / BATCH_SIZE)
+//                   ? "bg-blue-600 scale-110"
+//                   : "bg-gray-300 hover:bg-gray-400"
+//               }`}
+//           ></span>
+//         ))}
+//       </div>
+
+//       {/* Animations */}
+//       <style jsx>{`
+//         @keyframes slide-in {
+//           0% {
+//             opacity: 0;
+//             transform: translateY(20px);
+//           }
+//           100% {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
+//         .animate-slide-in {
+//           animation: slide-in 0.8s ease-out;
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+
 const AboutSection = () => {
 
   const [about, setAbout] = useState<AboutData | null>(null)
@@ -291,9 +461,9 @@ const AboutSection = () => {
     
     fetchData()
   }, [])
+ 
 
-
-  if (!about) return <p>Loading...</p>
+  if (!about) return 
 
   return (
     <section className="bg-gray-50  px-6 lg:px-24">

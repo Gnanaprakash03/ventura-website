@@ -268,13 +268,17 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
   }, [isSubmitted]);
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Interested In <span className="text-red-600">*</span>
-        </label>
+  <form
+    className="space-y-6 sm:space-y-8 w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-8"
+    onSubmit={handleSubmit}
+  >
+    {/* Interested In */}
+    <div>
+      <label className="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+        Interested In <span className="text-red-600">*</span>
+      </label>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <select
           value={selectedInterest}
           onChange={(e) => {
@@ -282,7 +286,7 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
             setSelectedInterest(value);
             setShowOtherField(value === "others");
           }}
-          className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300"
+          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
         >
           <option value="">Select an option</option>
           {availableInterests.map((interest) => (
@@ -293,13 +297,13 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
         </select>
       </motion.div>
 
-      {/* Description (tooltip-style below dropdown) */}
+      {/* Tooltip-style description */}
       {selectedInterest && (
         <motion.p
           key={selectedInterest}
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-2 text-sm text-gray-500"
+          className="mt-2 text-xs sm:text-sm text-gray-500"
         >
           {
             availableInterests.find((i) => i.tag === selectedInterest)
@@ -308,7 +312,7 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
         </motion.p>
       )}
 
-      {/* Show input when “Others” selected */}
+      {/* “Others” input */}
       {showOtherField && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
@@ -321,139 +325,161 @@ export  function ContactUsFormWithReCaptcha({ contactUsData }: { contactUsData: 
             placeholder="Please specify your interest"
             value={otherInterest}
             onChange={(e) => setOtherInterest(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300"
+            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
           />
         </motion.div>
       )}
-      </div>
+    </div>
 
+    {/* Name */}
+    <div>
+      <label
+        htmlFor="firstName"
+        className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
+      >
+        Name <span className="text-red-600">*</span>
+      </label>
+      <input
+        type="text"
+        id="firstName"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
+        required
+      />
+    </div>
 
-      <div className="">
-        <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-             Name <span className="text-red-600">*</span>
-          </label>
-          <input 
-            type="text" 
-            id="firstName" 
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
-            required
-          />
-        </div>
-        
-      </div>
+    {/* Work Email */}
+    <div>
+      <label
+        htmlFor="workEmail"
+        className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
+      >
+        Work Email <span className="text-red-600">*</span>
+      </label>
+      <input
+        type="email"
+        id="workEmail"
+        value={workEmail}
+        onChange={(e) => setWorkEmail(e.target.value)}
+        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
+        required
+      />
+      <input
+        type="text"
+        name="_gotcha"
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+    </div>
 
+    {/* Phone Number */}
+    <div>
+      <label
+        htmlFor="phoneNumber"
+        className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
+      >
+        Phone Number <span className="text-red-600">*</span>
+      </label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
+        required
+      />
+    </div>
+
+    {/* Job Title + Company Name (Responsive Grid) */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
       <div>
-        <label htmlFor="workEmail" className="block text-sm font-medium text-gray-700 mb-1">
-          Work Email <span className="text-red-600">*</span>
+        <label
+          htmlFor="jobTitle"
+          className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
+        >
+          Job Title
         </label>
-        <input 
-          type="email" 
-          id="workEmail" 
-          value={workEmail}
-          onChange={(e) => setWorkEmail(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
-          required
-        />
         <input
           type="text"
-          name="_gotcha"
-          style={{ display: "none" }}
-          tabIndex={-1}
-          autoComplete="off"
+          id="jobTitle"
+          value={jobTitle}
+          onChange={(e) => setJobTitle(e.target.value)}
+          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
         />
       </div>
 
       <div>
-        <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
-          Phone Number <span className="text-red-600">*</span>
+        <label
+          htmlFor="companyName"
+          className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
+        >
+          Company Name <span className="text-red-600">*</span>
         </label>
-        <input 
-          type="tel" 
-          id="phoneNumber" 
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
+        <input
+          type="text"
+          id="companyName"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
           required
         />
       </div>
+    </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700 mb-1">
-            Job Title 
-          </label>
-          <input 
-            type="text" 
-            id="jobTitle" 
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
-            
-          />
-        </div>
-        <div>
-          <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-1">
-            Company Name <span className="text-red-600">*</span>
-          </label>
-          <input 
-            type="text" 
-            id="companyName" 
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300" 
-            required
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          Message
-        </label>
-        <textarea 
-          id="message" 
-          name="message" 
-          rows={4} 
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300"
-        ></textarea>
-      </div>
-      {submitError && (
-        <div className="text-red-600 text-sm">
-          {submitError}
-        </div>
-      )}
-
-      <motion.button
-        type="submit"
-        disabled={isSubmitting || isSubmitted}
-        className={`w-full px-6 py-3 rounded-lg text-lg font-semibold transition-colors duration-300 flex items-center justify-center
-          ${isSubmitting 
-            ? 'bg-blue-400 cursor-not-allowed'
-            : isSubmitted
-              ? 'bg-green-500 hover:bg-green-600'
-              : 'bg-blue-600 hover:bg-blue-700'
-          } text-white`}
-        whileHover={!isSubmitting && !isSubmitted ? { scale: 1.05 } : {}}
-        whileTap={!isSubmitting && !isSubmitted ? { scale: 0.95 } : {}}
+    {/* Message */}
+    <div>
+      <label
+        htmlFor="message"
+        className="block text-sm sm:text-base font-medium text-gray-700 mb-1"
       >
-        {isSubmitting ? (
-          'Sending...'
-        ) : isSubmitted ? (
-          <>
-            <FaCheck className="mr-2" />
-            Message Sent!
-          </>
-        ) : (
-          'Send Message'
-        )}
-      </motion.button>
-    </form>
-  );
+        Message
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows={4}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-300 text-sm sm:text-base"
+      ></textarea>
+    </div>
+
+    {/* Error Message */}
+    {submitError && (
+      <div className="text-red-600 text-sm sm:text-base">{submitError}</div>
+    )}
+
+    {/* Submit Button */}
+    <motion.button
+      type="submit"
+      disabled={isSubmitting || isSubmitted}
+      className={`w-full px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-base sm:text-lg font-semibold transition-colors duration-300 flex items-center justify-center
+        ${
+          isSubmitting
+            ? "bg-blue-400 cursor-not-allowed"
+            : isSubmitted
+            ? "bg-green-500 hover:bg-green-600"
+            : "bg-blue-600 hover:bg-blue-700"
+        } text-white`}
+      whileHover={!isSubmitting && !isSubmitted ? { scale: 1.05 } : {}}
+      whileTap={!isSubmitting && !isSubmitted ? { scale: 0.95 } : {}}
+    >
+      {isSubmitting ? (
+        "Sending..."
+      ) : isSubmitted ? (
+        <>
+          <FaCheck className="mr-2" />
+          Message Sent!
+        </>
+      ) : (
+        "Send Message"
+      )}
+    </motion.button>
+  </form>
+);
+
 }
 
 export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsData | null }) {
@@ -461,15 +487,31 @@ export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsDat
     <RecaptchaProviderWrapper>
     <div className="w-full bg-gradient-to-br from-gray-50 to-blue-50 text-gray-800 min-h-screen">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt- pb-8">
-        <div className="sticky z-30 top-[4.3rem] py-4 mb-12 overflow-hidden bg-white">
-          <motion.h1 
-            className="text-5xl font-bold mb-3 text-center tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400"
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Contact Us
-          </motion.h1>
+        <div className="relative md:sticky z-30 top-[4.3rem] py-4 mb-12 overflow-hidden bg-white">
+          <motion.h1
+              className="
+                text-3xl 
+                sm:text-4xl 
+                md:text-5xl 
+                lg:text-6xl 
+                font-extrabold 
+                mb-4 
+                sm:mb-6 
+                text-center 
+                tracking-tight 
+                leading-tight 
+                bg-clip-text 
+                text-transparent 
+                bg-gradient-to-r 
+                from-blue-600 
+                to-teal-400
+              "
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+            >
+              Contact Us
+            </motion.h1>
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
             animate={{
@@ -499,14 +541,7 @@ export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsDat
           >
             <h2 className="text-3xl font-semibold mb-8 text-blue-600">Contact Information</h2>
             <div className="space-y-6">
-              {/* {contactUsData?.address && (
-                <div className="flex items-center">
-                  <motion.div variants={floatingIcon} animate="animate">
-                    <FaMapMarkerAlt className="text-blue-600 mr-4 text-2xl" />
-                  </motion.div>
-                  <p className="text-lg"><strong>Address:</strong> {contactUsData.address}</p>
-                </div>
-              )} */}
+             
               {contactUsData?.phone && (
                 <div className="flex items-center">
                   <motion.div variants={floatingIcon} animate="animate">

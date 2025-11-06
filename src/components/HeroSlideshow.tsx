@@ -205,74 +205,79 @@ export default function HeroSlideshow() {
 
   
 
-  return (
-    <div className="relative w-full min-h-[400px]  md:min-h-[500px] mt-1 sm:mt-4 ">
-      {/* <CursorTrail /> */}
-      {/* Dots pattern */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'radial-gradient(circle at center, #93c5fd 1.5px, transparent 1.5px)',
-          backgroundSize: '24px 24px',
-          opacity: 0.4
-        }}
-      />
-       
-      
-      {/* Content */}
-      <div className="absolute inset-0 flex items-start justify-center pt-20 sm:pt-24 md:pt-32">
-  <div className="max-w-8xl mx-auto px-4 sm:px-6 text-center relative z-10">
+ return (
+  <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[600px] mt-1 sm:mt-4">
+    {/* Background Dots Pattern */}
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage:
+          'radial-gradient(circle at center, #93c5fd 1.5px, transparent 1.5px)',
+        backgroundSize: '22px 22px',
+        opacity: 0.3,
+      }}
+    />
 
-    {/* Title */}
-    <motion.h1
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 sm:mb-6 
-                 bg-gradient-to-r from-teal-400 via-blue-500 to-blue-600 bg-clip-text text-transparent 
-                 leading-tight tracking-tight"
-    >
-      Automate.Inspect.Improve
-    </motion.h1>
+    {/* Content Section */}
+    <div className="absolute inset-0 flex items-center justify-center text-center px-3 sm:px-6">
+      <div className="max-w-7xl mx-auto relative z-10 pt-16 sm:pt-24 ">
+        {/* Title */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-2 sm:mb-4 
+                     bg-gradient-to-r from-teal-400 via-blue-500 to-blue-600 bg-clip-text text-transparent 
+                     leading-tight tracking-tight"
+        >
+          Automate. Inspect. Improve.
+        </motion.h1>
 
-    {/* Subtitle */}
-    <motion.h2
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      className="text-sm xs:text-base sm:text-lg md:text-2xl lg:text-4xl mb-4 sm:mb-8 text-gray-600 px-2 sm:px-0"
-    >
-      Elevating fabric inspection into an art of excellence.
-    </motion.h2>
+        {/* Subtitle */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-600 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-2"
+        >
+          Elevating fabric inspection into an art of excellence.
+        </motion.h2>
 
-    {/* Buttons */}
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-0">
-      <button
-        onClick={() => navigateToPage(heroData.primaryButton.link)}
-        className="w-full sm:w-auto min-w-[160px] sm:min-w-[220px] px-4 sm:px-8 py-2.5 sm:py-4 
-                   bg-blue-600 hover:bg-blue-700 transition-transform duration-200 
-                   hover:scale-105 text-white rounded-full text-base sm:text-lg font-medium 
-                   flex items-center justify-center shadow-md"
-      >
-        {heroData.primaryButton.text}
-      </button>
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 px-2"
+        >
+          {/* Primary Button */}
+          <button
+            onClick={() => navigateToPage(heroData.primaryButton.link)}
+            className="w-full sm:w-auto min-w-[100px] sm:min-w-[150px] px-5 sm:px-8 py-3 sm:py-4 
+                       bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full 
+                       transition-transform duration-200 hover:scale-105 flex items-center justify-center
+                       shadow-md text-base sm:text-lg"
+          >
+            {heroData.primaryButton.text}
+          </button>
 
-      <button
-        onClick={() => (window.location.href = '/contact')}
-        className="w-full sm:w-auto min-w-[160px] sm:min-w-[220px] px-4 sm:px-8 py-2.5 sm:py-4 
-                   bg-white/90 hover:bg-white border-2 border-blue-600 rounded-full text-blue-600 
-                   text-base sm:text-lg font-medium transition-colors flex items-center 
-                   justify-center shadow-md backdrop-blur-sm hover:scale-105"
-      >
-        {heroData.secondaryButton.text}
-      </button>
+          {/* Secondary Button */}
+          <button
+            onClick={() => (window.location.href = '/contact')}
+            className="w-full sm:w-auto  min-w-[100px] sm:min-w-[150px] px-5 sm:px-8 py-3 sm:py-4 
+                       bg-white/90 hover:bg-white border-2 border-blue-600 text-blue-600 
+                       font-medium rounded-full text-base sm:text-lg transition-all duration-200 
+                       hover:scale-105 flex items-center justify-center shadow-md backdrop-blur-sm"
+          >
+            {heroData.secondaryButton.text}
+          </button>
+        </motion.div>
+      </div>
     </div>
+
+    {/* Decorative Wave Animation */}
+    <WaveAnimation />
   </div>
-</div>
+);
 
-
-
-      <WaveAnimation />
-    </div>
-  );
 }

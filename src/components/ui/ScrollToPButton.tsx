@@ -35,7 +35,7 @@ const ScrollToTopButton: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-center"
+          className="fixed bottom-4 right-2 sm:bottom-6 sm:right-6 z-50 flex flex-col items-center"
         >
           <button
             onClick={scrollToTop}

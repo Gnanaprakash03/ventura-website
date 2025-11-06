@@ -41,7 +41,7 @@ export default function OtherSolutionPage({ data }: PageProps) {
     <div className="bg-brand-bg text-gray-800 font-inter leading-relaxed">
       <div className="container mx-auto md:p-10 max-w-7xl relative">
         {/* Header */}
-        <header className="sticky top-0 md:top-[4.5rem] z-30 text-center mb-12 bg-gray-50 py-3">
+        <header className="relative md:sticky top-[4.5rem] z-30 text-center mb-12 bg-gray-50 py-3">
           <h1
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
                       py-1 font-extrabold mb-3 

@@ -15,7 +15,7 @@ async function getData(): Promise<{ title: string; sections: Section[] }> {
       sections[]{
         title,
         text,
-        "img": img.asset->url
+        "imgurl": img.asset->url
       }
     }
   `;
