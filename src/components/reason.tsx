@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Image from "next/image";
 
 
 import { client } from '@/sanity/lib/client'
@@ -388,12 +389,16 @@ export default function FactsSlideCarousel({ facts }: FactsSlideCarouselProps) {
                           </div>
 
                         {/* Image */}
-                        <div className="flex justify-center items-center">
-                            <img
-                              src={fact.image}
-                              alt={fact.title}
-                              className="w-[200px] h-[140px] sm:w-[240px] sm:h-[170px] md:w-[280px] md:h-[170px]  object-cover rounded-md"
-                            />
+                        <div className="flex justify-center items-center relative w-[280px] h-[170px] sm:w-[240px] sm:h-[170px] md:w-[280px] md:h-[170px]">
+                          <Image
+                            src={fact.image}
+                            alt={fact.title}
+                            fill
+                            className="object-cover rounded-md"
+                            sizes="(max-width: 640px) 240px,
+                                  (max-width: 768px) 280px,
+                                  280px"
+                          />
                         </div>
                       
 

@@ -376,16 +376,23 @@ interface OtherSolutionsProps {
             <Link href={`/solutions/${sol.slug}`} legacyBehavior>
               <a className="block">
                 <div className="relative h-[10rem] w-full">
-                  <img
-                     src={sol.image?.asset?.url || "/fallback.jpg"}
-                    alt={sol.name}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
+                  <div className="relative h-[10rem] w-full">
+                    <Image
+                      src={sol.image?.asset?.url || "/fallback.jpg"}
+                      alt={sol.name || "Solution image"}
+                      fill
+                      className="object-cover rounded-md"
+                      sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 80vw,
+                            60vw"
+                      priority={false}
+                    />
+                  </div>
                 <div className="p-4">
                   <h3 className="text-xl font-semibold text-blue-500">
                     {sol.name}
                   </h3>
+                </div>
                 </div>
               </a>
             </Link>

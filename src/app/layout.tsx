@@ -16,6 +16,9 @@ const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics'), { 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  // 👇 Add this line — it sets the base URL for Open Graph, Twitter, etc.
+  metadataBase: new URL("https://fidas.in"), // Replace with your actual domain
+
   // Default title and template for all pages
   title: {
     default: "FIDAS | Fabric Inspection Software",
@@ -25,28 +28,6 @@ export const metadata: Metadata = {
   // Global description for SEO
   description:
     "FIDAS is an advanced fabric inspection software for textile and apparel industries, offering grading, defect analysis, quality reporting, and ASTM 4-point system tracking.",
-
-    // Open Graph (social media preview)
-  openGraph: {
-    title: "FIDAS | Fabric Inspection Software",
-    description:
-      "Optimize fabric inspection, grading, and quality reporting with FIDAS software. Reduce wastage and improve textile quality with AI-driven insights.",
-    url: "https://fidas.in",
-    siteName: "FIDAS",
-    images: [
-      { url: "https://fidas.in/og.png", width: 1200, height: 630 },
-    ],
-    type: "website",
-  },
-
-  // Twitter card
-  twitter: {
-    card: "summary_large_image",
-    title: "FIDAS | Fabric Inspection Software",
-    description:
-      "Optimize fabric inspection, grading, and quality reporting with FIDAS software.",
-    images: ["https://fidas.in/og-image.jpg"],
-  },
 
   // Robots (for search engines)
   robots: {
@@ -61,13 +42,8 @@ export const metadata: Metadata = {
   },
 };
 
-// export const metadata1: Metadata = {
-//   title: "FIDAS",
-//   description: "Empowering financial decisions with AI-driven insights",
-//   icons: {
-//     icon: '/favicon.ico',
-//   },
-// };
+
+
 
 export default function RootLayout({
   children,

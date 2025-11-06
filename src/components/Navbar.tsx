@@ -26,7 +26,6 @@ interface MenuColumn {
     alt: string;
   };
   
-  desc?: string;
 }
 
 
@@ -54,7 +53,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="relative md:fixed bg-inherit top-0 left-0 right-0 z-50">
+    <div className="relative md:fixed bg-inherit top-0 left-0 right-0 z-50 pb-2">
       <div className="max-w-7.5xl mx-auto px-3 mt-4">
         <div className="flex justify-between items-center gap-4">
           <Link href="/" className="flex-shrink-0">
@@ -63,7 +62,8 @@ export default function Navbar() {
               alt="Ventura Logo"
               width={200}  // intrinsic size, any value
               height={80}
-              className="h-auto max-h-10 w-auto sm:max-h-12 md:max-h-14 lg:max-h-16"
+              style={{ height: "auto" }}
+              className="h-auto max-h-10 w-auto sm:max-h-10 md:max-h-12 lg:max-h-14"
               priority
             />
           </Link>
@@ -324,19 +324,19 @@ function NavbarContent({ isMobile = false, pathname, isScrolled, setIsMenuOpen }
                       >
                         {col.image && (
                         <div className="relative w-[100px] h-[90px] overflow-hidden rounded-md mb-2">
-                          <img
+                          <Image
                             src={col.image.src}
-                            alt={col.image.alt}
+                            alt={col.image.alt || "Image"}
+                            fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 100px"
                           />
                         </div>
                       )}
                         <h4 className="text-blue-700 dark:text-blue-400 text-sm font-semibold">
                           {col.title}
                         </h4>
-                        <p className="text-gray-500 text-xs line-clamp-2">
-                          {col.desc}
-                        </p>
+                        
                       </a>
                     ))}
                   </div>
@@ -444,14 +444,14 @@ function NavbarContent({ isMobile = false, pathname, isScrolled, setIsMenuOpen }
                                   setActive(null);
                                 }}>
                                {column.image && (
-                                  <div className="relative w-[160px] h-[150px] mt-5 mb-2 overflow-hidden rounded-lg">
-                                    <img
-                                      src={column.image.src}
-                                      alt={column.image.alt}
-                                      
-                                      className="h-[150px] object-cover transition-transform duration-300 group-hover:scale-105"
-                                    />
-                                  </div>
+                                  <div className="relative w-[160px] h-[150px] overflow-hidden rounded-xl">
+                                  <Image
+                                    src={column.image.src}
+                                    alt={column.image.alt}
+                                    fill
+                                    className="object-cover"
+                                  />
+                                </div>
                                 )}
                               <h3 className="font-semibold text-lg text-slate-600 dark:text-blue-400  pb-2">
                                 {column.title}

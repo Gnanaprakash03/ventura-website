@@ -256,31 +256,6 @@ export function CompanyClient({ companyData }: { companyData: CompanyData }) {
           </ScrollAnimationWrapper>
         )}
 
-{/* 
-        {companyData.contactUs && (
-          <ScrollAnimationWrapper>
-            <motion.div
-              variants={fadeInUp}
-              className="mt-16 p-8 bg-gradient-to-r from-blue-50 to-teal-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl border border-blue-100"
-            >
-              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
-                {companyData.contactUs.title}
-              </h2>
-              <div className="text-lg md:text-xl text-gray-700 leading-relaxed whitespace-pre-line">
-                {/* {companyData.contactUs.description } 
-                Regis Xavier
-                <a
-                href="mailto:contact@fidas.in"
-                className="flex items-center gap-2 mt-3 text-blue-600 hover:text-blue-800 transition-colors duration-200"
-              >
-                <MdEmail className="w-6 h-6" />
-                <span>contact@fidas.in</span>
-              </a>
-              </div>
-            </motion.div>
-          </ScrollAnimationWrapper>
-        )} */}
-
         {companyData.contactUs && (
            <motion.section
       initial={{ opacity: 0, y: 50 }}
@@ -291,17 +266,17 @@ export function CompanyClient({ companyData }: { companyData: CompanyData }) {
       {/* Left side message */}
       <div className="flex-1 text-center sm:text-left">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600">
-          Have a project in mind? Let's make it happen!
+          Have a project in mind? Let&#39;s make it happen!
         </h2>
         <p className="mt-2 text-gray-600 sm:text-lg">
-          We'd love to hear from you. Reach out today.
+          We&#39;d love to hear from you. Reach out today.
         </p>
       </div>
 
       {/* Right side CTA button */}
       <div className="flex-1 flex justify-center sm:justify-end">
         <a
-          href="/contact/us" // Replace with your email or link to contact form
+          href="/contact" // Replace with your email or link to contact form
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105"
         >
           Contact Us
@@ -310,18 +285,7 @@ export function CompanyClient({ companyData }: { companyData: CompanyData }) {
     </motion.section>
         )}
 
-        {/* {companyData.contactUs && (
-          <ScrollAnimationWrapper>
-            <motion.div
-              variants={fadeInUp}
-              className="mt-16 p-8 bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg"
-            >
-              <h2 className="text-2xl font-bold mb-4 text-blue-600">{companyData.contactUs.title}</h2>
-              <div className="text-lg whitespace-pre-line">{companyData.contactUs.description}</div>
-            </motion.div>
-          </ScrollAnimationWrapper>
-        )} */}
-        {/* Removed FIDAS Benefits section */}
+        
       </div>
     </div>
   );

@@ -46,6 +46,10 @@ import { solutionRootPage } from './solutionRootPageType'
 import { solutionItem } from './solutionItemType'
 import { industryVerticalPage } from './industryverticalPageType'
 import { otherSolutionPageType } from './otherSolutionPageType'
+import howFIDASWorks from './howFIDASWorks'
+
+
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     blockContentType,
@@ -94,6 +98,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     solutionRootPage,
     solutionItem,
     industryVerticalPage,
-    otherSolutionPageType
+    otherSolutionPageType,
+    howFIDASWorks
   ],
 }

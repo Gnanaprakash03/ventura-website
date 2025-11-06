@@ -649,11 +649,6 @@ export default function FidasContent() {
       const [pageData, setPageData] = React.useState<FidasContentData | null>(null);
       const [factsData, setFactsData] = React.useState<FactsSectionData | null>(null);
       const [statisticsData, setStatisticsData] = React.useState<StatisticsSectionData | null>(null)
-      const centerLogo = "/logo.png"; // replace with your logo path
-
-  // split into rings
-  const innerRing = components.slice(0, 8);
-  const outerRing = components.slice(8);
 
       
 
@@ -682,10 +677,13 @@ export default function FidasContent() {
   if (!pageData && !factsData) {
     return (
       <div className="flex items-center justify-center h-screen bg-white">
-      <img 
-        src="/images/loading.gif" 
-        alt="Loading..." 
-        className="w-100 "
+      <Image
+        src="/images/loading.gif"
+        alt="Loading..."
+        width={100}
+        height={100}
+        style={{ height: "auto" }}
+        className="object-contain"
       />
     </div>
     ) 
@@ -728,6 +726,7 @@ export default function FidasContent() {
                       width={150}
                       height={60}
                       className="object-contain"
+                      style={{ height: "auto" }}
                     />
                   </div>
                 ))}
@@ -743,6 +742,7 @@ export default function FidasContent() {
                       width={150}
                       height={60}
                       className="object-contain"
+                      style={{ height: "auto" }}
                     />
                   </div>
                 ))}
@@ -798,22 +798,6 @@ export default function FidasContent() {
                       {data.label}
                     </span>
                   </motion.div>
-
-                  // <motion.div
-                  //   key="2"
-                  //   initial={{ opacity: 0, y: 20 }}
-                  //   whileInView={{ opacity: 1, y: 0 }}
-                  //   viewport={{ once: true }}
-                  //   transition={{ delay: 0.3 }}
-                  //   className="flex flex-col items-center justify-center text-center p-3 sm:p-4 md:p-4 bg-white/50 backdrop-blur-sm rounded-xl shadow-2xl hover:shadow-[0_25px_60px_rgba(0,0,0,0.4)] transition-shadow duration-300"
-                  // >
-                  //   <motion.div className="text-2xl sm:text-3xl md:text-[2.9rem] font-bold text-blue-600">
-                  //     <NumberCounter n={24} duration={3000} />
-                  //   </motion.div>
-                  //   <span className="text-sm sm:text-base md:text-lg text-gray-600 mt-1 font-medium">
-                  //     Integrated with 24 types of Fabric Inspection related Electronic Hardware Devices
-                  //   </span>
-                  // </motion.div>
                   ))}
                 </div>
 
@@ -898,56 +882,12 @@ export default function FidasContent() {
         </section>
 
         </div>
-        {/* New Optimization Section
-        <section id="Optimize" className="pb-8">
-          <div className="text-center mb-12">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400"
-            >
-              {pageData.optimizeSection.title}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600"
-            >
-              {pageData.optimizeSection.subtitle}
-            </motion.p>
-          </div>
+        
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
-            {pageData.optimizeSection.features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
-                className="group relative"
-              >
-                <div className="relative h-48 rounded-xl overflow-hidden shadow-lg">
-                  <Image
-                    src={urlForImage(feature.image.asset)?.url() || '/fallback-image.jpg'}
-                    alt={feature.image.alt || 'Feature image'}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-white font-medium">
-                    {feature.title}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section> */}
-
-        <section className="py-16 bg-gray-50">
 
 
 
+        <section className="py-16 bg-gray-50">
           <HardwareSection />
 
           <div className="max-w-7xl mx-auto px-4 text-center">
@@ -962,12 +902,14 @@ export default function FidasContent() {
               {/* Center Circle */}
               <div className="absolute flex items-center justify-center w-32 h-32 border border-teal-400/40 rounded-full shadow-lg group relative">
                 {/* Center Logo */}
-                <img
+                <Image
                   src="/images/icons/fidas-software.png"
                   alt="FIDAS Software"
                   width={110}
                   height={110}
                   className="object-contain pointer-events-none"
+                  style={{ width: "auto", height: "auto" }}
+                  priority
                 />
 
                 {/* Tooltip on hover */}
@@ -1011,6 +953,7 @@ export default function FidasContent() {
                         width={50}
                         height={50}
                         className="object-contain"
+                        style={{ height: "auto" }}
                       />
                      {/* Tooltip label on hover */}
                       <span className="absolute bottom-[-2rem] left-1/2 -translate-x-1/2 
@@ -1129,6 +1072,7 @@ export default function FidasContent() {
                         <Image
                           src={urlForImage(testimonial.image)?.url() || '/fallback-avatar.jpg'}
                           alt={testimonial.author}
+                          style={{ height: "auto" }}
                           fill
                           className="object-cover"
                         />

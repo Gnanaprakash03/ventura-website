@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";        
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
+import Image from "next/image";
+
 
 export interface SolutionItem {
   name: string;
@@ -211,11 +213,13 @@ React.useEffect(()=> {
                   whileHover={{ scale: 1.05 }}
                   className="rounded-2xl shadow-md  overflow-hidden bg-white hover:shadow-xl transition-all cursor-pointer"
                 >
-                  <div className="h-60 overflow-hidden">
-                    <img
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
                       src={item.imageUrl}
-                      alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      alt={item.name || "Solution image"}
+                      fill
+                      className="object-cover transition-transform duration-500 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 800px"
                     />
                   </div>
                   <div className="p-6 h-36">
@@ -245,11 +249,13 @@ React.useEffect(()=> {
                   whileHover={{ scale: 1.05 }}
                   className="rounded-2xl   shadow-md overflow-hidden bg-white hover:shadow-xl transition-all cursor-pointer"
                 >
-                  <div className="h-48 overflow-hidden">
-                    <img
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
                       src={item.imageUrl}
-                      alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      alt={item.name || "Solution image"}
+                      fill
+                      className="object-cover transition-transform duration-500 hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 600px"
                     />
                   </div>
                   <div className="p-6 h-36">

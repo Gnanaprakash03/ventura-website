@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { FaCheckCircle, FaClock, FaDollarSign, FaUsers ,FaChartLine,FaCloud,FaCogs,FaShieldAlt} from "react-icons/fa";
 import { FaRulerCombined,FaClipboardCheck,FaUserCheck,FaChartPie,FaFileAlt,FaPalette,FaProjectDiagram} from "react-icons/fa";
@@ -104,107 +104,6 @@ interface BenefitsShowcaseProps {
   benefits: Benefit[];
 }
 
-// function BenefitsShowcase({ benefits }: BenefitsShowcaseProps) {
-//   const [startIndex, setStartIndex] = useState(0);
-//   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-//   const BATCH_SIZE = 4;
-
-//   // Auto-slide
-//   const startAutoSlide = () => {
-//     if (intervalRef.current) clearInterval(intervalRef.current);
-//     intervalRef.current = setInterval(() => {
-//       setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
-//     }, 5000);
-//   };
-
-//   useEffect(() => {
-//     startAutoSlide();
-//     return () => {
-//       if (intervalRef.current) clearInterval(intervalRef.current);
-//     };
-//   }, []);
-
-//   // Click a dot to jump to a batch
-//   const goToBatch = (batchIndex: number) => {
-//     setStartIndex(batchIndex * BATCH_SIZE);
-//     startAutoSlide(); // reset timer
-//   };
-
-//   const visible = benefits.slice(startIndex, startIndex + BATCH_SIZE);
-//   const displayed =
-//     visible.length < BATCH_SIZE
-//       ? [...visible, ...benefits.slice(0, BATCH_SIZE - visible.length)]
-//       : visible;
-
-//   const totalBatches = Math.ceil(benefits.length / BATCH_SIZE);
-
-//   return (
-//     <div className="relative w-full">
-//       {/* Benefits grid */}
-//       <div className="grid sm:grid-cols-2 gap-6">
-//         {displayed.map((benefit, i) => (
-//           <div
-//             key={i}
-//             className={`flex items-start space-x-4 bg-white p-4 my-1 rounded-xl shadow hover:shadow-lg transition-all duration-700 ease-out transform
-//               opacity-0 translate-y-6 animate-slide-in`}
-//             style={{
-//               animationDelay: `${i * 150}ms`,
-//               animationFillMode: "forwards",
-//             }}
-//           >
-            
-//             <benefit.icon className="text-blue-600 text-3xl mt-1" />
-//             <div>
-//               <h3 className="text-lg font-semibold text-gray-900">
-//                 {benefit.title}
-//               </h3>
-//               <p className="text-gray-600 text-sm text-justify">{benefit.description}</p>
-//             </div>
-//           </div>
-//           )    )}
-//       </div>
-
-//       {/* Dots / Indicators */}
-//       <div className="flex justify-center mt-4 space-x-2">
-//         {Array.from({ length: totalBatches }).map((_, i) => (
-//           <span
-//             key={i}
-//             onClick={() => goToBatch(i)}
-//             className={`w-3 h-3 rounded-full cursor-pointer transition-colors ${
-//               i === Math.floor(startIndex / BATCH_SIZE)
-//                 ? "bg-blue-600"
-//                 : "bg-gray-300"
-//             }`}
-//           ></span>
-//         ))}
-//       </div>
-
-//       <style jsx>{`
-//         @keyframes slide-in {
-//           0% {
-//             opacity: 0;
-//             transform: translateY(20px);
-//           }
-//           100% {
-//             opacity: 1;
-//             transform: translateY(0);
-//           }
-//         }
-//         .animate-slide-in {
-//           animation: slide-in 0.8s ease-out;
-//         }
-//       `}</style>
-//     </div>
-//   );
-// }
-
-const images = [
-  "/images/About/fidas-about-1.jpg",
-  "/images/About/fidas-about-2.jpeg",
-  "/images/About/fidas-about-3.jpg",
-]; 
-
 
 function AutoImageSliders({ images }: AutoImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -232,31 +131,6 @@ function AutoImageSliders({ images }: AutoImageSliderProps) {
   )
 }
 
-
-function AutoImageSlider() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // change image every 3 seconds
-
-    return () => clearInterval(interval); // cleanup on unmount
-  }, []);
-
-  return (
-    <div className="relative w-full h-80 lg:h-[400px]">
-      <Image
-        src={images[currentIndex]}
-        alt="FIDAS Fabric Inspection"
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="object-cover rounded-2xl shadow-lg transition-all duration-500"
-      />
-    </div>
-  );
-}
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 
@@ -269,39 +143,42 @@ function BenefitsShowcase({ benefits }: { benefits: any[] }) {
   const totalBatches = Math.ceil(benefits.length / BATCH_SIZE);
 
   // Auto-slide
-  const startAutoSlide = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
-    }, 7000);
-  };
+  
+const startAutoSlide = useCallback(() => {
+  if (intervalRef.current) clearInterval(intervalRef.current);
+  intervalRef.current = setInterval(() => {
+    setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
+  }, 7000);
+}, [benefits.length, BATCH_SIZE, setStartIndex]);
 
   useEffect(() => {
     startAutoSlide();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [startAutoSlide]);
 
-  // Manual navigation
-  const goToNext = () => {
+    const goToNext = useCallback(() => {
     setStartIndex((prev) => (prev + BATCH_SIZE) % benefits.length);
     startAutoSlide();
-  };
+  }, [benefits.length, startAutoSlide]);
 
-  const goToPrev = () => {
+  const goToPrev = useCallback(() => {
     setStartIndex((prev) =>
       prev - BATCH_SIZE < 0
         ? benefits.length - BATCH_SIZE
         : (prev - BATCH_SIZE) % benefits.length
     );
     startAutoSlide();
-  };
+  }, [benefits.length, startAutoSlide]);
 
-  const goToBatch = (batchIndex: number) => {
-    setStartIndex(batchIndex * BATCH_SIZE);
-    startAutoSlide();
-  };
+  const goToBatch = useCallback(
+    (batchIndex: number) => {
+      setStartIndex(batchIndex * BATCH_SIZE);
+      startAutoSlide();
+    },
+    [startAutoSlide]
+  );
 
   // Visible batch
   const visible = benefits.slice(startIndex, startIndex + BATCH_SIZE);
@@ -440,16 +317,8 @@ const AboutSection = () => {
         <div className="w-full relative aspect-[4/3] lg:h-[400px] rounded-2xl overflow-hidden">
         <AutoImageSliders images={about.images} />
         </div>
-        {/* <div className=" relative w-full h-80 lg:h-[400px]  ">
-          <Image
-            src="/images/about/fidas-about.png" // replace with your image path
-            alt="FIDAS Fabric Inspection"
-            fill
-            className="object-cover rounded-2xl shadow-lg"
-          />
-        </div> */}
+        
       </div>
-      {/* <FidasInfographic /> */}
     </section>
   );
 };

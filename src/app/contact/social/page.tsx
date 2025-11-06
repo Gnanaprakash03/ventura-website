@@ -4,6 +4,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { client } from '@/lib/sanity';
 import { SocialMediaClient } from './SocialMediaClient';
+import Image from 'next/image';
 
 export default function SocialMedia() {
   const [socialMediaData, setSocialMediaData] = useState(null);
@@ -23,7 +24,16 @@ export default function SocialMedia() {
     fetchData();
   }, []);
 
-  if (!socialMediaData) return <div>Loading...</div>;
+  if (!socialMediaData) return( <div className="flex items-center justify-center h-screen bg-white">
+    <Image
+            src="/images/loading.gif"
+            alt="Loading..."
+            width={100}
+            height={100}
+            style={{ height: "auto" }}
+            className="object-contain"
+          />
+  </div>);
 
   return (
     <div className="w-full bg-gradient-to-br from-gray-50 to-blue-50 text-gray-800 min-h-screen">

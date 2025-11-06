@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AppGridSection } from "./solution";
 import { fabricModules } from "@/components/FidasContent";
 import { OtherSolutionsSection } from "./solution";
-import { othersolutions } from "@/data/solutions";
+import Image from "next/image";
 
 
 interface PageProps {
@@ -67,35 +67,22 @@ export default function OtherSolutionPage({ data }: PageProps) {
 
             {/* Image Section */}
             <div className="flex-1 w-full">
-              <div className="w-full h-[35vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden rounded-xl shadow-lg">
-                <img
-                  src={data?.overview?.src?.asset?.url}
-                  alt={data?.name || "Overview image"}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <div className="relative w-full h-[35vh] sm:h-[40vh] md:h-[45vh] lg:h-[45vh] overflow-hidden rounded-xl shadow-lg">
+              <Image
+                src={data?.overview?.src?.asset?.url || "/images/placeholder.jpg"}
+                alt={data?.name || "Overview image"}
+                fill
+                className="object-cover"
+                priority={false}
+                sizes="(max-width: 640px) 100vw,
+                      (max-width: 1024px) 90vw,
+                      80vw"
+              />
+            </div>
             </div>
           </div>
         </section>
 
-
-        {/* Objectives */}
-        {/* <section className="mb-12">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">Objectives</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {data.objectives?.map((item, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-start gap-3 border-t-4 border-red-500 hover:shadow-xl transition-all duration-300"
-              >
-                <span className="text-3xl">{item.icon}</span>
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section> */}
 
         <section className="mb-12 px-4 ">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600 mb-8 text-center md:text-left">

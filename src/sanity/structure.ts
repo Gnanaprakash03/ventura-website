@@ -130,6 +130,7 @@ export const structure: StructureResolver = (S) =>
                 S.documentTypeListItem("aboutsection").title("About Section"),
                 S.documentTypeListItem("factsSection").title("Facts Section"),
                 S.documentTypeListItem("statisticsSection").title("Statistics Section"),
+                S.documentTypeListItem("howFIDASWorks").title("How FIDAS Works Page"),
               ])
           ),
         S.listItem()
@@ -141,6 +142,7 @@ export const structure: StructureResolver = (S) =>
                 S.documentTypeListItem("solutionRootPage").title("Solution Home Page"),
                 S.documentTypeListItem("industryVerticalPage").title("Industry Vertical Page"),
                 S.documentTypeListItem("otherSolutionPageType").title("Other Solutions Page"),
+
               ])
           ),
       
