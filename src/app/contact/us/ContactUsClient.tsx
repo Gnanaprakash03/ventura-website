@@ -495,8 +495,6 @@ export function ContactUsClient({ contactUsData }: { contactUsData: ContactUsDat
                 md:text-5xl 
                 lg:text-6xl 
                 font-extrabold 
-                mb-4 
-                sm:mb-6 
                 text-center 
                 tracking-tight 
                 leading-tight 
