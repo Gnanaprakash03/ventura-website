@@ -134,17 +134,17 @@ export async function POST(req: Request) {
             <td style="padding:40px 40px 24px;">
               <p style="margin:0 0 16px;font-size:15px;color:#374151;">Dear ${firstName || "there"},</p>
               <p style="margin:0 0 20px;font-size:15px;color:#374151;line-height:1.7;">
-                Thank you for contacting us. We have successfully received your message and we will reach out to you immediately.
+                Thank you for contacting us. We have successfully received your message and we will reach out to you as soon as posible.
               </p>
               <p style="margin:0 0 20px;font-size:15px;color:#374151;line-height:1.7;">
-                You can expect to hear back from us within <strong>two business days</strong>. In the meantime, feel free to explore our products and solutions that could be of interest to you. 
+                You can expect to hear back from us within <strong>1-2 business days</strong>. In the meantime, feel free to explore our products and solutions that could be of interest to you. 
               </p>
             </td>
           </tr>
           <tr>
             <td style="padding:0 40px 36px;text-align:center;">
               <a href="https://fidas.in/products" style="display:inline-block;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 28px;border-radius:6px;letter-spacing:0.3px;">
-                Visit Our Website
+                Check Out Our Products
               </a>
             </td>
           </tr>
@@ -184,12 +184,12 @@ export async function POST(req: Request) {
  
         <!-- CTA -->
             <tr>
-              <td style="padding:0 40px 36px;text-align:center;">
+              <td style="padding:0 40px 20px;text-align:center;">
                 <p style="margin:0 0 20px;font-size:14px;color:#6b7280;">
                   Need immediate assistance? Reach us directly at
                   <a href="mailto:contact@fidas.in" style="color:#1d4ed8;text-decoration:none;font-weight:500;">contact@fidas.in</a>
                 </p>
-                
+
               </td>
             </tr>
  
