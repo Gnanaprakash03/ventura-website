@@ -14,7 +14,7 @@ export const projectId = assertValue(
 )
 
 
-// For upload datas to Sanity for Run 'sanity dev'
+// For upload datas to Sanity for Run 'npx sanity dev'
 // export const dataset = assertValue(
 //   process.env.SANITY_STUDIO_DATASET,
 //    'Missing environment variable:SANITY_STUDIO_DATASET'

@@ -104,7 +104,7 @@ export default function SolutionPage({ data }: SolutionPageProps) {
       </div>
 
 
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       {data.objectives && (
         <section className="my-6">
@@ -375,25 +375,27 @@ interface OtherSolutionsProps {
           >
             <Link href={`/solutions/${sol.slug}`} legacyBehavior>
               <a className="block">
+                <div className="w-full rounded-md overflow-hidden">
+                {/* Image wrapper */}
                 <div className="relative h-[10rem] w-full">
-                  <div className="relative h-[10rem] w-full">
-                    <Image
-                      src={sol.image?.asset?.url || "/fallback.jpg"}
-                      alt={sol.name || "Solution image"}
-                      fill
-                      className="object-cover rounded-md"
-                      sizes="(max-width: 768px) 100vw,
-                            (max-width: 1200px) 80vw,
-                            60vw"
-                      priority={false}
-                    />
-                  </div>
+                  <Image
+                    src={sol.image?.asset?.url || "/fallback.jpg"}
+                    alt={sol.name || "Solution image"}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw,
+                          (max-width: 1200px) 80vw,
+                          60vw"
+                  />
+                </div>
+
+                {/* Content */}
                 <div className="p-4">
                   <h3 className="text-xl font-semibold text-blue-500">
                     {sol.name}
                   </h3>
                 </div>
-                </div>
+              </div>
               </a>
             </Link>
           </motion.div>

@@ -113,9 +113,9 @@ export const MenuItem = ({
         )}>
           {React.Children.map(children, (child, index) => (
             <React.Fragment key={index}>
-              {index > 0 && !isMobile && (
+              {/* {index > 0 && !isMobile && (
                 <div className="my-1 border-t border-gray-200 dark:border-gray-700" />
-              )}
+              )} */}
               <div className="py-1">{child}</div>
             </React.Fragment>
           ))}

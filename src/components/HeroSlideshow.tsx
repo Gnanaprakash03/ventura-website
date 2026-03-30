@@ -240,7 +240,7 @@ export default function HeroSlideshow() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-600 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-2"
         >
-          Elevating fabric inspection into an art of excellence.
+           Real-time fabric quality control. Zero guesswork.
         </motion.h2>
 
         {/* Buttons */}
@@ -258,7 +258,8 @@ export default function HeroSlideshow() {
                        transition-transform duration-200 hover:scale-105 flex items-center justify-center
                        shadow-md text-base sm:text-lg"
           >
-            {heroData.primaryButton.text}
+            {/* {heroData.primaryButton.text} */}
+            See How It Works
           </button>
 
           {/* Secondary Button */}
@@ -269,7 +270,8 @@ export default function HeroSlideshow() {
                        font-medium rounded-full text-base sm:text-lg transition-all duration-200 
                        hover:scale-105 flex items-center justify-center shadow-md backdrop-blur-sm"
           >
-            {heroData.secondaryButton.text}
+            {/* {heroData.secondaryButton.text} */}
+            Book a demo
           </button>
         </motion.div>
       </div>
