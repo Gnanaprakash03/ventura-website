@@ -12,14 +12,7 @@ export default function SocialMedia() {
   useEffect(() => {
     async function fetchData() {
       const data = await client.fetch(`*[_type == "socialMediaPage"][0]{ title, socialPlatforms }`);
-      const whatsapp = {
-        _key: 'whatsapp123',
-        name: 'WhatsApp',
-        icon: 'FaWhatsapp',
-        handle: '+91 9962936356',
-        link: 'https://wa.me/919876543210'
-      };
-      setSocialMediaData({ ...data, socialPlatforms: [whatsapp, ...data.socialPlatforms] });
+      setSocialMediaData(data);
     }
     fetchData();
   }, []);

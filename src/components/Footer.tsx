@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaFacebook , FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { FaFacebook , FaInstagram, FaLinkedin, FaYoutube ,FaInstagramSquare } from 'react-icons/fa';
 import {BsTwitterX } from 'react-icons/bs'
 import { client } from '@/sanity/lib/client';
 
@@ -47,7 +47,7 @@ export default function Footer() {
     twitter: BsTwitterX ,
     instagram: FaInstagram,
     linkedin: FaLinkedin,
-    youtube: FaYoutube
+    youtube: FaYoutube,
   };
 
   return (
