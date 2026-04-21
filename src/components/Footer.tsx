@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook , FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import {BsTwitterX } from 'react-icons/bs'
 import { client } from '@/sanity/lib/client';
 
 interface FooterData {
@@ -35,6 +36,7 @@ export default function Footer() {
   useEffect(() => {
     getFooterData().then(data => setFooterData(data));
   }, []);
+  console.log("footer data", footerData);
 
   if (!footerData) {
     return null; // or a loading spinner
@@ -42,9 +44,10 @@ export default function Footer() {
 
   const socialIcons: { [key: string]: React.ElementType } = {
     facebook: FaFacebook,
-    twitter: FaTwitter,
+    twitter: BsTwitterX ,
     instagram: FaInstagram,
     linkedin: FaLinkedin,
+    youtube: FaYoutube
   };
 
   return (
@@ -58,7 +61,9 @@ export default function Footer() {
               {footerData.socialLinks.map((link, index) => {
                 const Icon = socialIcons[link.platform.toLowerCase()];
                 return Icon ? (
-                  <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
+                  <a key={index}
+                   href={link.url.startsWith("http") ? link.url : `https://${link.url}`} 
+                   target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                     <Icon className="w-6 h-6" />
                   </a>
                 ) : null;
@@ -89,11 +94,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
           <p className="text-gray-300">{footerData.copyrightText}</p>
-          <p className="text-xs text-gray-500 text-center mt-2">
-              This site is protected by reCAPTCHA and the Google
-              <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer"> Privacy Policy </a> and
-              <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer"> Terms of Service </a> apply.
-            </p>
+          
         </div>
       </div>
     </footer>
