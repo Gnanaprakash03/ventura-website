@@ -192,7 +192,7 @@ export function CompanyClient({ companyData }: { companyData: CompanyData }) {
             </motion.h2>
             <motion.div variants={fadeInUp} className="prose max-w-none">
             <PortableText
-              value={companyData.achievements}
+              value={companyData.sapIntegration}
               components={{
                 list: {
                   bullet: ({ children }) => <ul className="list-none pl-0">{children}</ul>,
@@ -238,7 +238,7 @@ export function CompanyClient({ companyData }: { companyData: CompanyData }) {
             </motion.h2>
             <motion.div variants={fadeInUp} className="prose max-w-none">
             <PortableText
-              value={companyData.achievements}
+              value={companyData.futureIntegration}
               components={{
                 list: {
                   bullet: ({ children }) => <ul className="list-none pl-0">{children}</ul>,
